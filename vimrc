@@ -105,9 +105,10 @@ cnoremap jk <Esc>
 "Abbreviations"
 "-------------"
 iab ipdb import ipdb; ipdb.set_trace()
-iab abhi Abhijith Sethuraj <abhijithsethuraj4@gmail.com>
+iab abhi Abhijith Sethuraj
+iab Author: Author: Abhijith Sethuraj <abhijithsethuraj4@deshaw.com>
+iab minauth Author: bergentruckung
 iab logrus log "github.com/sirupsen/logrus"
-" cabbrev help tab help
 
 "Tabs"
 "----"
@@ -209,6 +210,8 @@ Plug 'vim-scripts/todo-vim'
 Plug 'junegunn/goyo.vim'
 " swap words
 Plug 'kurkale6ka/vim-swap'
+" highlights yank-ed stuff
+Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -257,7 +260,7 @@ let g:SimpylFold_fold_docstring = 0
 "Airline"
 "-------"
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = "one"
+let g:airline_theme = "bubblegum"
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -401,7 +404,7 @@ let g:rehash256 = 1
 syntax enable
 " highlight colorline ctermbg=black
 set background=dark
-colorscheme one
+colorscheme hybrid
 " i'd like my autucompletion menu to have custom colors "
 highlight pmenu ctermbg=black ctermfg=gray
 highlight pmenusel ctermbg=darkgray ctermfg=black
