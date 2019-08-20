@@ -11,6 +11,7 @@ nnoremap <silent> <S-Tab> :bprevious<cr>
 set incsearch
 set ignorecase
 set smartcase
+set infercase
 
 "Leader mapping
 "--------------
@@ -51,8 +52,10 @@ set expandtab
 set encoding=utf-8
 set wildmode=longest,list,full
 set wildmenu
+set cmdheight=2
 
 filetype plugin indent on
+set complete+=i
 
 "gvim specific"
 "-------------"
@@ -110,15 +113,13 @@ iab Author: Author: Abhijith Sethuraj <abhijithsethuraj4@deshaw.com>
 iab minauth Author: bergentruckung
 iab logrus log "github.com/sirupsen/logrus"
 
-"Tabs"
-"----"
-noremap ` :buffers<cr>
-
 "Turn off bell"
 "-------------"
 set belloff=all
 
-set nocompatible              " be viMproved
+"be viMproved
+set nocompatible
+
 filetype on
 
 "PLUGINS, PLUGINS AND MORE PLUGINS!"
@@ -132,8 +133,8 @@ Plug 'metalelf0/supertab'
 Plug 'tpope/vim-fugitive'
 " APIs for vimscript "
 Plug 'ascenator/L9', {'name': 'newL9'}
-" ctrlp - fuzzy search "
-Plug 'ctrlpvim/ctrlp.vim'
+" ctrlp - fuzzy search " - REALLY good plugin, but retired in favour of FZF
+" Plug 'ctrlpvim/ctrlp.vim'
 " auto-pairs - autoclose brackets and stuff "
 Plug 'jiangmiao/auto-pairs'
 " vim-autoformat - beautify "
@@ -171,7 +172,7 @@ Plug 'flazz/vim-colorschemes'
 " nix support
 Plug 'LnL7/vim-nix'
 " ALE "
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 " Trust me, one of the best looking themes for vim "
 Plug 'rakr/vim-one'
 " Session tracker for vim "
@@ -184,18 +185,12 @@ Plug 'fatih/vim-go'
 Plug 'tomasiser/vim-code-dark'
 " COC - Conquer of Completions: no idea why it's not 'conqueror'"
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --froze-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --froze-lockfile'}
-" Shows up indentlines "
-Plug 'Yggdroot/indentLine'
 " Multi cursor vim "
 Plug 'terryma/vim-multiple-cursors'
 " Syntax highlighting for jinja2 "
 Plug 'Glench/Vim-Jinja2-Syntax'
-" Current line indicator (yes, it works with colorschemes) "
-" Plug 'miyakogi/conoline.vim'
 " Uses regex to jump between functions. Extn for ctrlp "
-Plug 'tacahiroy/ctrlp-funky'
+" Plug 'tacahiroy/ctrlp-funky'
 " git commit browser "
 Plug 'junegunn/gv.vim'
 " support for language packs "
@@ -212,6 +207,18 @@ Plug 'junegunn/goyo.vim'
 Plug 'kurkale6ka/vim-swap'
 " highlights yank-ed stuff
 Plug 'machakann/vim-highlightedyank'
+" print the signature onto command line space/virtual print during completion
+Plug 'Shougo/echodoc.vim'
+" print signature anytime 
+Plug 'skywind3000/vim-preview'
+" fuzzy file/buffer/whatever finder
+Plug 'junegunn/fzf.vim'
+" ctrlpfunky for fzf
+Plug 'tracyone/fzf-funky'
+" MRU support for fzf
+Plug 'pbogut/fzf-mru.vim'
+" Distraction free 
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -226,26 +233,26 @@ let g:pydoc_open_cmd = 'tabnew'
 
 " ctrlP"
 "-----"
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPBuffer'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_switch_buffer = 'Et'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-nnoremap <Leader>p :CtrlPTag<CR>
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlPBuffer'
+" let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_switch_buffer = 'Et'
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+" nnoremap <Leader>p :CtrlPTag<CR>
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-            \ 'file': '\v\.(exe|so|dll)$',
-            \ }
-let g:ctrlp_match_current_file = 1
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_custom_ignore = {
+"             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"             \ 'file': '\v\.(exe|so|dll)$',
+"             \ }
+" let g:ctrlp_match_current_file = 1
 
 "NERDTree"
 "--------"
 " autocmd vimenter * NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd Vimenter * wincmd w
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd Vimenter * wincmd w
 
 "vim-autoformat"
 "--------------"
@@ -331,7 +338,7 @@ function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
     else
-        call CocAction('doHover')
+        call CocActionAsync('doHover')
     endif
 endfunction
 
@@ -340,6 +347,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>l :GoFmt<cr>
+set updatetime=300
+set signcolumn=yes
+set shortmess+=c
 
 "coc-snippets"
 "------------
@@ -351,17 +362,19 @@ vmap <C-j> <Plug>(coc-snippets-select)
 
 "ALE"
 "---
-let g:ale_open_list = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_completion_enabled = 0
-let g:ale_lint_on_save = 0
-nnoremap <Leader><c-l> :ALELint<CR>
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_enter = 0
+" let g:ale_completion_enabled = 0
+" let g:ale_lint_on_save = 0
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+" nnoremap <Leader>l :ALELint<CR>
 
 "vim-obsession"
 "-------------"
 let g:airline#extensions#obsession#enabled = 1
 let g:airline#extensions#obsession#indicator_text = '##OBSESSED##'
+nnoremap <leader>o :Obsession<cr>
 
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
@@ -404,7 +417,7 @@ let g:rehash256 = 1
 syntax enable
 " highlight colorline ctermbg=black
 set background=dark
-colorscheme hybrid
+colorscheme hybrid_material
 " i'd like my autucompletion menu to have custom colors "
 highlight pmenu ctermbg=black ctermfg=gray
 highlight pmenusel ctermbg=darkgray ctermfg=black
@@ -415,12 +428,11 @@ aug QFClose
     au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&buftype") == "quickfix"|q|endif
 aug END
 
-"quickfix window"
+"location list"
 "---------------
 
-map <C-n> :cnext<cr>
-map <C-b> :cprevious<cr>
-nnoremap <Leader>a :cclose<cr>
+nnoremap <c-j> :cnext<cr>
+nnoremap <c-k> :cprev<cr>
 
 " golang
 " ------
@@ -428,6 +440,7 @@ au Filetype go nmap <buffer> <Leader>b <Plug>(go-build)
 au Filetype go nmap <buffer> <Leader>r <Plug>(go-run)
 au Filetype go nmap <buffer> <Leader>d <Plug>(go-doc-vertical)
 au Filetype go nmap <buffer> <Leader>a <Plug>(go-fmt)
+au Filetype go nmap <buffer> <Leader>i <Plug>(go-info)
 au Filetype go nmap <buffer> <Leader><c-d> <Plug>(go-def-vertical)
 " au BufWritePost *.go silent! !myctags
 au Filetype go set autowrite
@@ -462,9 +475,9 @@ nnoremap <leader>u :MundoToggle<cr>
 
 "ctrlp-funky"
 "-----------
-nnoremap <Leader>f :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+" nnoremap <Leader>f :CtrlPFunky<Cr>
+" " narrow the list down with a word under cursor
+" nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 "ack.vim"
 "-------
@@ -473,7 +486,7 @@ if executable('rg')
 endif
 
 "vim-todo"
-"-------k
+"--------
 let g:todo_autopreview = 1
 nnoremap <buffer> <Leader>t :TODOToggle<CR>
 
@@ -485,6 +498,121 @@ au Filetype markdown nmap <buffer> <leader>I <Plug>(simple-todo-new-start-of-lin
 au Filetype markdown nmap <buffer> <leader>s <Plug>(simple-todo-mark-switch)
 let g:simple_todo_tick_symbol = '✓'
 
+"echodoc
+"-------
+let g:echodoc_enable_at_startup = 1
+let g:echodoc#type = "virtual"
+
+"FZF
+"---
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10new' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+" Command for git grep
+" - fzf#vim#grep(command, with_column, [options], [fullscreen])
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+
+" Override Colors command. You can safely do this in your .vimrc as fzf.vim
+" will not override existing commands.
+command! -bang Colors
+  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+nnoremap <silent> <C-p> :Buffers<cr>
+nnoremap <silent> <C-t> :Files<cr>
+nnoremap <silent> <leader>p :FZFMru<cr>
+nnoremap <silent> <leader>f :CtrlPFunky<cr>
+nnoremap <silent> <leader>; :History:<cr>
+nnoremap <silent> <leader>/ :History/<cr>
+nnoremap <silent> <leader>s :Rg<cr>
+nnoremap <silent> <leader>c :Commits<cr>
+nnoremap <silent> <leader>h :Helptags<cr>
+
+"Limelight
+"---------
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 "END"
 "---"
