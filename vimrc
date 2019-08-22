@@ -79,7 +79,7 @@ noremap <S-Right> $
 noremap <S-Left> 0
 noremap <Leader>tt :TagbarToggle<CR><C-w><Right>
 noremap <Leader>w :%s/\s\+$//e<CR>
-nnoremap <Leader>r :source $MYVIMRC<CR>
+" nnoremap <Leader>r :source $MYVIMRC<CR>
 nnoremap <silent> <C-l> :nohl<CR>
 nnoremap <silent> L :Ack!<CR>
 
@@ -219,6 +219,8 @@ Plug 'tracyone/fzf-funky'
 Plug 'pbogut/fzf-mru.vim'
 " Distraction free 
 Plug 'junegunn/limelight.vim'
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-fnr'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -418,7 +420,8 @@ syntax enable
 " highlight colorline ctermbg=black
 set background=dark
 colorscheme hybrid_material
-" i'd like my autucompletion menu to have custom colors "
+highlight LineNr ctermfg=59
+" I'd like my autucompletion menu to have custom colors "
 highlight pmenu ctermbg=black ctermfg=gray
 highlight pmenusel ctermbg=darkgray ctermfg=black
 
@@ -613,6 +616,20 @@ nnoremap <silent> <leader>h :Helptags<cr>
 "---------
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
+
+"Show time while saving
+augroup SAVING
+    autocmd!
+    autocmd BufWritePost * echo strftime('%c')
+augroup END
+
+"FNR
+"---
+nmap <Leader>r <Plug>(FNR)
+xmap <Leader>r <Plug>(FNR)
+nmap <Leader>R <Plug>(FNR%)
+xmap <Leader>R <Plug>(FNR%)
+
 
 "END"
 "---"
