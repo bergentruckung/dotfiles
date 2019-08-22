@@ -219,8 +219,12 @@ Plug 'tracyone/fzf-funky'
 Plug 'pbogut/fzf-mru.vim'
 " Distraction free 
 Plug 'junegunn/limelight.vim'
+" pseudo command line, needed for fnr
 Plug 'junegunn/vim-pseudocl'
+" find n replace
 Plug 'junegunn/vim-fnr'
+" preview all the things inside your registers
+Plug 'junegunn/vim-peekaboo'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -440,7 +444,6 @@ nnoremap <c-k> :cprev<cr>
 " golang
 " ------
 au Filetype go nmap <buffer> <Leader>b <Plug>(go-build)
-au Filetype go nmap <buffer> <Leader>r <Plug>(go-run)
 au Filetype go nmap <buffer> <Leader>d <Plug>(go-doc-vertical)
 au Filetype go nmap <buffer> <Leader>a <Plug>(go-fmt)
 au Filetype go nmap <buffer> <Leader>i <Plug>(go-info)
