@@ -610,7 +610,7 @@ nnoremap <silent> <C-t> :Files<cr>
 nnoremap <silent> <leader>p :FZFMru<cr>
 nnoremap <silent> <leader>f :CtrlPFunky<cr>
 nnoremap <silent> <leader>; :History:<cr>
-nnoremap <silent> <leader>/ :History/<cr>
+nnoremap <silent> <leader>/ :Line<cr>
 nnoremap <silent> <leader>s :Rg<cr>
 nnoremap <silent> <leader>c :Commits<cr>
 nnoremap <silent> <leader>h :Helptags<cr>
