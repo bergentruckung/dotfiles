@@ -57,6 +57,7 @@ set cmdheight=2
 filetype plugin indent on
 set complete+=i
 
+
 "gvim specific"
 "-------------"
 set guioptions-=m  "remove menu bar
@@ -171,8 +172,6 @@ Plug 'mhartington/oceanic-next'
 Plug 'flazz/vim-colorschemes'
 " nix support
 Plug 'LnL7/vim-nix'
-" ALE "
-" Plug 'w0rp/ale'
 " Trust me, one of the best looking themes for vim "
 Plug 'rakr/vim-one'
 " Session tracker for vim "
@@ -180,7 +179,6 @@ Plug 'tpope/vim-obsession'
 " this should probably be a builtin plugin
 Plug 'tpope/vim-surround'
 Plug 'simnalamburt/vim-mundo'
-Plug 'junegunn/fzf'
 Plug 'fatih/vim-go'
 Plug 'tomasiser/vim-code-dark'
 " COC - Conquer of Completions: no idea why it's not 'conqueror'"
@@ -212,6 +210,7 @@ Plug 'Shougo/echodoc.vim'
 " print signature anytime 
 Plug 'skywind3000/vim-preview'
 " fuzzy file/buffer/whatever finder
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " ctrlpfunky for fzf
 Plug 'tracyone/fzf-funky'
@@ -225,6 +224,8 @@ Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-fnr'
 " preview all the things inside your registers
 Plug 'junegunn/vim-peekaboo'
+Plug 'ayu-theme/ayu-vim'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -273,6 +274,7 @@ let g:SimpylFold_fold_docstring = 0
 "Airline"
 "-------"
 let g:airline#extensions#tabline#enabled = 1
+" use bubblegum if it's hybrid
 let g:airline_theme = "bubblegum"
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -353,7 +355,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
-nnoremap <leader>l :GoFmt<cr>
+autocmd Filetype go nnoremap <leader>l :GoFmt<cr>
 set updatetime=300
 set signcolumn=yes
 set shortmess+=c
@@ -366,15 +368,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 
-"ALE"
-"---
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_enter = 0
-" let g:ale_completion_enabled = 0
-" let g:ale_lint_on_save = 0
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-" nnoremap <Leader>l :ALELint<CR>
 
 "vim-obsession"
 "-------------"
@@ -418,13 +411,16 @@ endif
 nmap <leader> <c-\> :cs find s <c-r>=expand("<cword>")<cr><cr>1<cr><cr>
 " show a list of where function is called
 nmap <leader> <c-_> :cs find c <c-r>=expand("<cword>")<cr><cr>"colorscheme"
-"-----------"
+
+" look and feel
+"-------------"
 let g:rehash256 = 1
 syntax enable
 " highlight colorline ctermbg=black
 set background=dark
 colorscheme hybrid_material
 highlight LineNr ctermfg=59
+highlight Visual term=reverse cterm=reverse
 " I'd like my autucompletion menu to have custom colors "
 highlight pmenu ctermbg=black ctermfg=gray
 highlight pmenusel ctermbg=darkgray ctermfg=black
@@ -444,10 +440,10 @@ nnoremap <c-k> :cprev<cr>
 " golang
 " ------
 au Filetype go nmap <buffer> <Leader>b <Plug>(go-build)
-au Filetype go nmap <buffer> <Leader>d <Plug>(go-doc-vertical)
+au Filetype go nmap <buffer> <Leader>d <Plug>(go-doc)
 au Filetype go nmap <buffer> <Leader>a <Plug>(go-fmt)
 au Filetype go nmap <buffer> <Leader>i <Plug>(go-info)
-au Filetype go nmap <buffer> <Leader><c-d> <Plug>(go-def-vertical)
+au Filetype go nmap <buffer> <Leader><c-d> <Plug>(go-def)
 " au BufWritePost *.go silent! !myctags
 au Filetype go set autowrite
 let g:SuperTabDefaultCompletionTypeDiscovery = [
@@ -633,6 +629,31 @@ xmap <Leader>r <Plug>(FNR)
 nmap <Leader>R <Plug>(FNR%)
 xmap <Leader>R <Plug>(FNR%)
 
+
+if &diff
+    colorscheme hybrid
+endif
+
+"ALE"
+"---
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_completion_enabled = 0
+let g:ale_lint_on_save = 1
+let g:ale_set_loclist = 1
+let g:ale_keep_list_window_open = 1 
+nnoremap <Leader>l :ALELint<CR>
+let g:ale_fixers = {
+\   'python': [
+\       'add_blank_lines_for_python_control_statements',
+\       'black',
+\       'reorder-python-imports',
+\       'yapf',
+\   ],
+\}
+let g:ale_set_highlights = 0
+highlight ALEErrorLine ctermfg=red
+highlight ALEWarningLine ctermfg=yellow
 
 "END"
 "---"
