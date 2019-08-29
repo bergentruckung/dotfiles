@@ -53,6 +53,7 @@ set encoding=utf-8
 set wildmode=longest,list,full
 set wildmenu
 set cmdheight=2
+set noshowmode
 
 filetype plugin indent on
 set complete+=i
@@ -427,8 +428,10 @@ highlight IncSearch ctermfg=172
 highlight LineNr ctermfg=59
 highlight Visual term=reverse cterm=reverse
 " I'd like my autucompletion menu to have custom colors "
+" Use this for anything other than seoul256
 highlight pmenu ctermbg=black ctermfg=gray
 highlight pmenusel ctermbg=darkgray ctermfg=black
+
 
 " close quick fix window if that's the only one remaining
 aug QFClose
@@ -439,8 +442,8 @@ aug END
 "location list"
 "---------------
 
-nnoremap <c-j> :cnext<cr>
-nnoremap <c-k> :cprev<cr>
+nnoremap <c-j> :lnext<cr>
+nnoremap <c-k> :lprev<cr>
 
 " golang
 " ------
