@@ -224,7 +224,6 @@ Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-fnr'
 " preview all the things inside your registers
 Plug 'junegunn/vim-peekaboo'
-Plug 'ayu-theme/ayu-vim'
 Plug 'dense-analysis/ale'
 
 call plug#end()
@@ -275,7 +274,7 @@ let g:SimpylFold_fold_docstring = 0
 "-------"
 let g:airline#extensions#tabline#enabled = 1
 " use bubblegum if it's hybrid
-let g:airline_theme = "bubblegum"
+let g:airline_theme = "zenburn"
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -418,7 +417,13 @@ let g:rehash256 = 1
 syntax enable
 " highlight colorline ctermbg=black
 set background=dark
-colorscheme hybrid_material
+" only if you use seoul256
+let g:seoul256_background = 236
+colorscheme seoul256
+set cursorline
+highlight WildMenu ctermfg=black ctermbg=white
+highlight Comment ctermfg=darkgrey
+highlight IncSearch ctermfg=172
 highlight LineNr ctermfg=59
 highlight Visual term=reverse cterm=reverse
 " I'd like my autucompletion menu to have custom colors "
@@ -633,6 +638,49 @@ xmap <Leader>R <Plug>(FNR%)
 if &diff
     colorscheme hybrid
 endif
+
+" Search within a scope (a {...} program block)
+" ---------------------------------------------
+" Stolen from -> Version 2010-02-28 from http://vim.wikia.com/wiki/VimTip1530
+
+" Search within top-level block for word at cursor, or selected text.
+nnoremap <Leader>[ /<C-R>=<SID>ScopeSearch('[[', 1)<CR><CR>
+vnoremap <Leader>[ <Esc>/<C-R>=<SID>ScopeSearch('[[', 2)<CR><CR>gV
+" Search within current block for word at cursor, or selected text.
+nnoremap <Leader><space> /<C-R>=<SID>ScopeSearch('[{', 1)<CR><CR>
+vnoremap <silent> <Leader><space> <Esc>/<C-R>=<SID>ScopeSearch('[{', 2)<CR><CR>gV
+" Search within current top-level block for user-entered text.
+" nnoremap <Leader>/ /<C-R>=<SID>ScopeSearch('[[', 0)<CR>
+" vnoremap <Leader>/ <Esc>/<C-R>=<SID>ScopeSearch('[[', 2)<CR><CR>
+
+" Return a pattern to search within a specified scope, or
+" return a backslash to cancel search if scope not found.
+" navigator: a command to jump to the beginning of the desired scope
+" mode: 0=scope only; 1=scope+current word; 2=scope+visual selection
+function! s:ScopeSearch(navigator, mode)
+  if a:mode == 0
+    let pattern = ''
+  elseif a:mode == 1
+    let pattern = '\<' . expand('<cword>') . '\>'
+  else
+    let old_reg = getreg('@')
+    let old_regtype = getregtype('@')
+    normal! gvy
+    let pattern = escape(@@, '/\.*$^~[')
+    call setreg('@', old_reg, old_regtype)
+  endif
+  let saveview = winsaveview()
+  execute 'normal! ' . a:navigator
+  let first = line('.')
+  normal %
+  let last = line('.')
+  normal %
+  call winrestview(saveview)
+  if first < last
+    return printf('\%%>%dl\%%<%dl%s', first-1, last+1, pattern)
+  endif
+  return "\b"
+endfunction
 
 "ALE"
 "---
