@@ -225,7 +225,11 @@ Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-fnr'
 " preview all the things inside your registers
 Plug 'junegunn/vim-peekaboo'
+" use ALE for linting
 Plug 'dense-analysis/ale'
+" create presentations with vimdeck. Note that you need to install the gem
+" first
+Plug 'tybenz/vimdeck'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -621,8 +625,8 @@ nnoremap <silent> <leader>h :Helptags<cr>
 
 "Limelight
 "---------
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
 
 "Show time while saving
 augroup SAVING
@@ -637,10 +641,6 @@ xmap <Leader>r <Plug>(FNR)
 nmap <Leader>R <Plug>(FNR%)
 xmap <Leader>R <Plug>(FNR%)
 
-
-if &diff
-    colorscheme hybrid
-endif
 
 " Search within a scope (a {...} program block)
 " ---------------------------------------------
