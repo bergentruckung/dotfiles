@@ -75,10 +75,8 @@ set noswapfile
 "Keyboard mapping"
 "----------------"
 noremap <silent> q :bd<cr>
-noremap <leader>q :q<cr>
+noremap <silent><leader>q :close<cr>
 noremap <c-q> :wq<cr>
-noremap <S-Right> $
-noremap <S-Left> 0
 noremap <Leader>tt :TagbarToggle<CR><C-w><Right>
 noremap <Leader>w :%s/\s\+$//e<CR>
 " nnoremap <Leader>r :source $MYVIMRC<CR>
@@ -230,6 +228,11 @@ Plug 'dense-analysis/ale'
 " create presentations with vimdeck. Note that you need to install the gem
 " first
 Plug 'tybenz/vimdeck'
+Plug 'godlygeek/tabular'
+Plug 'rlofc/vorg'
+Plug 'kana/vim-textobj-user'
+Plug 'Julian/vim-textobj-brace'
+Plug 'glts/vim-textobj-comment'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -433,9 +436,12 @@ highlight LineNr ctermfg=59
 highlight Visual term=reverse cterm=reverse
 " I'd like my autucompletion menu to have custom colors "
 " Use this for anything other than seoul256
-highlight pmenu ctermbg=black ctermfg=gray
-highlight pmenusel ctermbg=darkgray ctermfg=black
-
+" highlight pmenu ctermbg=black ctermfg=gray
+" highlight pmenusel ctermbg=darkgray ctermfg=black
+" Use this for seoul256
+" highlight Pmenu ctermbg=237 ctermfg=59
+highlight Pmenusel ctermfg=black ctermbg=109
+highlight Pmenu ctermfg=grey ctermbg=black
 
 " close quick fix window if that's the only one remaining
 aug QFClose
@@ -706,5 +712,6 @@ let g:ale_set_highlights = 0
 highlight ALEErrorLine ctermfg=red
 highlight ALEWarningLine ctermfg=yellow
 
+""
 "END"
 "---"
