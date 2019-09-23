@@ -234,6 +234,8 @@ Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-brace'
 Plug 'glts/vim-textobj-comment'
 Plug 'TaDaa/vimade'
+Plug 'ap/vim-css-color'
+Plug 'vim-scripts/vtreeexplorer'
 
 call plug#end()
 filetype plugin indent on    " required
