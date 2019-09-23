@@ -235,7 +235,6 @@ Plug 'Julian/vim-textobj-brace'
 Plug 'glts/vim-textobj-comment'
 Plug 'TaDaa/vimade'
 Plug 'ap/vim-css-color'
-Plug 'vim-scripts/vtreeexplorer'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -693,6 +692,16 @@ function! s:ScopeSearch(navigator, mode)
   endif
   return "\b"
 endfunction
+
+"netrw"
+"-----
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+highlight netrwExe cterm=bold ctermfg=187 ctermbg=23 gui=bold guifg=#DFDEBD guibg=#007173
+highlight netrwDir ctermfg=252 ctermbg=24 guifg=#D9D9D9 guibg=#007299
 
 "ALE"
 "---
