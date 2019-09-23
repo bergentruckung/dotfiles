@@ -702,6 +702,7 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 highlight netrwExe cterm=bold ctermfg=187 ctermbg=23 gui=bold guifg=#DFDEBD guibg=#007173
 highlight netrwDir ctermfg=252 ctermbg=24 guifg=#D9D9D9 guibg=#007299
+nnoremap <silent> <space><space> :Sexplore<CR>
 
 "ALE"
 "---
