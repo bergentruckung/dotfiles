@@ -371,10 +371,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
@@ -522,12 +518,6 @@ let g:indentLine_setColors = 0
 set undofile
 set undodir=~/.vim/undo
 nnoremap <leader>u :MundoToggle<cr>
-
-"ctrlp-funky"
-"-----------
-" nnoremap <Leader>f :CtrlPFunky<Cr>
-" " narrow the list down with a word under cursor
-" nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 "ack.vim"
 "-------
@@ -730,7 +720,6 @@ let g:netrw_altv = 1
 let g:netrw_winsize = 25
 highlight netrwExe cterm=bold ctermfg=187 ctermbg=23 gui=bold guifg=#DFDEBD guibg=#007173
 highlight netrwDir ctermfg=252 ctermbg=24 guifg=#D9D9D9 guibg=#007299
-nnoremap <silent> <space><space> :Sexplore<CR>
 
 "ALE"
 "---
