@@ -1,5 +1,5 @@
 "Buffers"
-"---------------"
+"-------"
 set confirm
 set hidden
 nnoremap <BS> <C-^>
