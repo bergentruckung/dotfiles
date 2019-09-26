@@ -74,7 +74,7 @@ set noswapfile
 
 "Keyboard mapping"
 "----------------"
-noremap <silent> q :bd<cr>
+noremap <silent> q :Bdelete<cr>
 noremap <silent><leader>q :close<cr>
 noremap <c-q> :wq<cr>
 noremap <Leader>tt :TagbarToggle<CR><C-w><Right>
@@ -235,6 +235,7 @@ Plug 'Julian/vim-textobj-brace'
 Plug 'glts/vim-textobj-comment'
 Plug 'TaDaa/vimade'
 Plug 'ap/vim-css-color'
+Plug 'moll/vim-bbye'
 
 call plug#end()
 filetype plugin indent on    " required
