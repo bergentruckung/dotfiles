@@ -247,29 +247,6 @@ nnoremap <leader>pc :PlugClean<cr>
 "-----"
 let g:pydoc_open_cmd = 'tabnew'
 
-" ctrlP"
-"-----"
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlPBuffer'
-" let g:ctrlp_working_path_mode = 'ra'
-" let g:ctrlp_switch_buffer = 'Et'
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-" nnoremap <Leader>p :CtrlPTag<CR>
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-
-" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-" let g:ctrlp_custom_ignore = {
-"             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"             \ 'file': '\v\.(exe|so|dll)$',
-"             \ }
-" let g:ctrlp_match_current_file = 1
-
-"NERDTree"
-"--------"
-" autocmd vimenter * NERDTree
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" autocmd Vimenter * wincmd w
-
 "vim-autoformat"
 "--------------"
 noremap <Leader>a :Autoformat<CR>
@@ -668,7 +645,7 @@ nmap <Leader>R <Plug>(FNR%)
 xmap <Leader>R <Plug>(FNR%)
 
 
-" Search within a scope (a {...} program block)
+" Search within a scope (a {...} program block) - stolen from somewhere
 " ---------------------------------------------
 " Stolen from -> Version 2010-02-28 from http://vim.wikia.com/wiki/VimTip1530
 
