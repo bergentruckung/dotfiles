@@ -229,7 +229,7 @@ Plug 'dense-analysis/ale'
 " first
 Plug 'tybenz/vimdeck'
 Plug 'godlygeek/tabular'
-Plug 'rlofc/vorg'
+Plug 'rlofc/vorg', {'for': 'vorg'}
 Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-brace'
 Plug 'glts/vim-textobj-comment'
@@ -719,6 +719,10 @@ let g:ale_fixers = {
 let g:ale_set_highlights = 0
 highlight ALEErrorLine ctermfg=red
 highlight ALEWarningLine ctermfg=yellow
+
+"vorg"
+"----
+au FileType vorg colorscheme seoul256
 
 ""
 "END"
