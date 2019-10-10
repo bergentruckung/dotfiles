@@ -54,6 +54,7 @@ set wildmode=longest,list,full
 set wildmenu
 set cmdheight=2
 set noshowmode
+set lazyredraw
 
 filetype plugin indent on
 set complete+=i
@@ -148,8 +149,6 @@ Plug 'tmhedberg/SimpylFold'
 " Airline and friends"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Dracula colorscheme"
-Plug 'dracula/vim'
 " Auto-indentation "
 Plug 'vim-scripts/indentpython.vim'
 " Docstring viewer "
@@ -162,15 +161,16 @@ Plug 'mhinz/vim-startify'
 " gitgutter
 Plug 'airblade/vim-gitgutter'
 " clang_complete
-Plug 'Rip-Rip/clang_complete'
+Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp']}
 " vim-cpp-enhanced-highlight"
-Plug 'octol/vim-cpp-enhanced-highlight'
-" Random colorscheme "
-Plug 'mhartington/oceanic-next'
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
+" NOTE: please install this plugin and remove it afterwards as a vim-plug
+" dependency
+" Plug 'junegunn/seoul256.vim'
 " Ps the github repo says, 'One colorscheme pack to rule them all'
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes', {'on': 'Colors'}
 " nix support
-Plug 'LnL7/vim-nix'
+Plug 'LnL7/vim-nix', {'for': 'nix'}
 " Trust me, one of the best looking themes for vim "
 Plug 'rakr/vim-one'
 " Session tracker for vim "
@@ -178,7 +178,7 @@ Plug 'tpope/vim-obsession'
 " this should probably be a builtin plugin
 Plug 'tpope/vim-surround'
 Plug 'simnalamburt/vim-mundo'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'tomasiser/vim-code-dark'
 " COC - Conquer of Completions: no idea why it's not 'conqueror'"
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -233,7 +233,7 @@ Plug 'rlofc/vorg'
 Plug 'kana/vim-textobj-user'
 Plug 'Julian/vim-textobj-brace'
 Plug 'glts/vim-textobj-comment'
-Plug 'TaDaa/vimade'
+Plug 'TaDaa/vimade', {'on': 'VimadeEnable'}
 Plug 'ap/vim-css-color'
 Plug 'moll/vim-bbye'
 
