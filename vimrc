@@ -29,7 +29,7 @@ runtime! ftplugin/man.vim
 
 "Autcommands"
 "-----------"
-au Filetype python set colorcolumn=79 ts=4 et sw=4
+" au Filetype python set colorcolumn=79 ts=4 et sw=4
 au BufRead * set t_Co=256
 au BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
@@ -75,8 +75,8 @@ set noswapfile
 
 "Keyboard mapping"
 "----------------"
-noremap <silent> q :Bdelete<cr>
-noremap <silent><leader>q :close<cr>
+noremap <silent><leader>q :Bdelete<cr>
+noremap <silent>Q :close<cr>
 noremap <c-q> :wq<cr>
 noremap <Leader>tt :TagbarToggle<CR><C-w><Right>
 noremap <Leader>w :%s/\s\+$//e<CR>
@@ -94,10 +94,10 @@ inoremap <Up> <nop>
 inoremap <Down> <nop>
 inoremap <Left> <nop>
 inoremap <Right> <nop>
-inoremap jk <Esc>
-set timeout timeoutlen=250 ttimeoutlen=25
-vnoremap jk <Esc>
-nnoremap jk <Esc>
+" inoremap jk <Esc>
+" set timeout timeoutlen=250 ttimeoutlen=25
+" vnoremap jk <Esc>
+" nnoremap jk <Esc>
 cnoremap <c-h> <left>
 cnoremap <c-j> <down>
 cnoremap <c-k> <up>
@@ -105,6 +105,11 @@ cnoremap <c-l> <right>
 cnoremap ^     <home>
 cnoremap $     <end>
 cnoremap jk <Esc>
+
+nnoremap s <c-w>
+nnoremap ss :w<CR>
+nnoremap sv :vsp 
+nnoremap sx :sp 
 
 "Abbreviations"
 "-------------"
@@ -128,8 +133,6 @@ filetype on
 "#####vim-plug#####"
 call plug#begin('~/.vim/plugged')
 
-" Supertab - for tab completion "
-Plug 'metalelf0/supertab'
 " git helper
 Plug 'tpope/vim-fugitive'
 " APIs for vimscript "
@@ -236,6 +239,11 @@ Plug 'glts/vim-textobj-comment'
 Plug 'TaDaa/vimade', {'on': 'VimadeEnable'}
 Plug 'ap/vim-css-color'
 Plug 'moll/vim-bbye'
+Plug 'bronson/vim-visual-star-search'
+Plug 'shougo/defx.nvim'
+Plug 'liuchengxu/vim-clap'
+Plug 'rhysd/git-messenger.vim'
+Plug 'ncm2/float-preview.nvim'
 
 call plug#end()
 filetype plugin indent on    " required
@@ -432,7 +440,7 @@ set background=dark
 " only if you use seoul256
 let g:seoul256_background = 236
 colorscheme seoul256
-set cursorline
+" set cursorline
 highlight WildMenu ctermfg=black ctermbg=white
 highlight Comment ctermfg=darkgrey
 highlight IncSearch ctermfg=172
@@ -468,23 +476,12 @@ au Filetype go nmap <buffer> <Leader>i <Plug>(go-info)
 au Filetype go nmap <buffer> <Leader><c-d> <Plug>(go-def)
 " au BufWritePost *.go silent! !myctags
 au Filetype go set autowrite
-let g:SuperTabDefaultCompletionTypeDiscovery = [
-            \ "&completefunc:<c-x><c-u>",
-            \ "&omnifunc:<c-x><c-o>",
-            \ ]
-let g:SuperTabLongestHighlight = 1
 let g:go_null_module_warning = 0
 let g:go_fmt_command = "goimports"
 
 " multicursor"
 " -----------
 let g:multi_cursor_quit_key = '<Esc>'
-
-"SuperTab"
-"--------"
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabCrMapping = 0
 
 "Indentline"
 "----------
@@ -723,6 +720,16 @@ highlight ALEWarningLine ctermfg=yellow
 "vorg"
 "----
 au FileType vorg colorscheme seoul256
+
+let g:python3_host_prog="/usr/local/bin/python3"
+
+"git-messenger"
+"-------------
+nnoremap <silent> <Leader>g :GitMessenger<cr> 
+
+"floating-preview window"
+"-----------------------
+let g:float_preview#docked = 0
 
 ""
 "END"
