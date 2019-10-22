@@ -29,9 +29,10 @@ runtime! ftplugin/man.vim
 
 "Autcommands"
 "-----------"
-" au Filetype python set colorcolumn=79 ts=4 et sw=4
+au Filetype python set colorcolumn=79 ts=4 et sw=4
 au BufRead * set t_Co=256
 au BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+au Filetype git set nofoldenable
 
 "Splitting"
 "---------"
