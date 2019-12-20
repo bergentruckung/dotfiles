@@ -1,0 +1,38 @@
+# this works only on bash >= 4.3 and readline >= 6.3
+# set show-mode-in-prompt on
+set expand-tilde
+set keymap emacs
+"\ez": vi-editing-mode
+
+set keymap vi-command
+"k": history-search-backward
+"j": history-search-forward
+"z": emacs-editing-mode
+"v": ""
+"\e[D":""
+"\e[C":""
+"\e[A":""
+"\e[B":""
+"\C-x\C-r": re-read-init-file
+
+set keymap vi-insert
+"\ea": emacs-editing-mode
+"\C-l": clear-screen
+"\C-e": end-of-line
+"\C-k": kill-line
+"\e.": insert-last-argument
+
+set editing-mode vi
+"\C-x\C-r": re-read-init-file
+
+# disable arrow keys if you're in vi mode
+$if mode=vi
+"\eOD":""
+"\e[D":""
+"\eOC":""
+"\e[C":""
+"\eOA":""
+"\e[A":""
+"\eOB":""
+"\e[B":""
+$endif
