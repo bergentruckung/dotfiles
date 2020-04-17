@@ -1,9 +1,20 @@
 #!/usr/bin/bash
 set -e
 
+if [[ $1 == "force" ]]; then
+    STOW_CMD="stow --adopt"
+    RESET=true
+else
+    STOW_CMD="stow"
+    RESET=false
+fi
+
 farm_name=$(git config --get remote.origin.url | xargs basename)
-find . -maxdepth 1 -type d ! -name "." ! -name ".git" -printf "%P\n" | xargs -L1 -I dir stow dir
+find . -maxdepth 1 -type d ! -name "." ! -name ".git" -printf "%P\n" | xargs -L1 -I dir $STOW_CMD dir
 
 if [[ $? == 0 ]]; then
+    if [[ $RESET == true ]]; then
+        git restore .
+    fi
     echo "Created symlink farm for $farm_name."
 fi
