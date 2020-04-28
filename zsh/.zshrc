@@ -49,6 +49,7 @@ alias tree="tree -C"
 alias less="less -Ri "
 alias History="history -fD"
 alias hist=History
+alias tasks=task list
 
 # env variables
 export EDITOR=vim
