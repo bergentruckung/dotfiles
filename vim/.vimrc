@@ -89,7 +89,7 @@ set complete+=i
 "spell check"
 "-----------"
 autocmd bergentruckung FileType vorg set spell
-autocmd bergentruckung FileType gitcommit set spell
+autocmd bergentruckung FileType gitcommit setlocal spell
 
 
 "gvim specific"
@@ -136,7 +136,6 @@ cnoremap <c-l> <right>
 
 nnoremap s <c-w>
 nnoremap ss :w<CR>
-nnoremap q :Bdelete<cr>
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
@@ -180,13 +179,9 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarOpen'}
 Plug 'tpope/vim-commentary'
 " python folds "
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
-" Airline and friends"
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 " Auto-indentation "
-Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
+" Plug 'vim-scripts/indentpython.vim', {'for': 'python'}
 " Docstring viewer "
-Plug 'fs111/pydoc.vim', {'for': 'python'}
 " Snip snip snip "
 " Commonly used snippets "
 Plug 'honza/vim-snippets', {'for': 'python'}
@@ -198,44 +193,27 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp']}
 " vim-cpp-enhanced-highlight"
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
-" NOTE: please install this plugin and remove it afterwards as a vim-plug
-" dependency
-" Plug 'junegunn/seoul256.vim'
-" Ps the github repo says, 'One colorscheme pack to rule them all'
-" Plug 'flazz/vim-colorschemes', {'on': 'Colors'}
 " nix support
 Plug 'LnL7/vim-nix', {'for': 'nix'}
-" Trust me, one of the best looking themes for vim "
-" Plug 'rakr/vim-one'
 " Session tracker for vim "
 Plug 'tpope/vim-obsession'
 " this should probably be a builtin plugin
 Plug 'tpope/vim-surround'
 Plug 'simnalamburt/vim-mundo', {'do': 'MundoShow'}
 Plug 'fatih/vim-go', {'for': 'go'}
-" Plug 'tomasiser/vim-code-dark'
-" COC - Conquer of Completions: no idea why it's not 'conqueror'"
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Multi cursor vim "
-Plug 'terryma/vim-multiple-cursors'
 " Syntax highlighting for jinja2 "
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
-" Uses regex to jump between functions. Extn for ctrlp "
-" Plug 'tacahiroy/ctrlp-funky'
 " git commit browser "
 Plug 'junegunn/gv.vim'
 " support for language packs "
 Plug 'sheerun/vim-polyglot'
 " ack.vim for grep "
 Plug 'mileszs/ack.vim'
-" simple todo list for vim "
-Plug 'vitalk/vim-simple-todo'
 " todo, notes, fixme viewer
 Plug 'vim-scripts/todo-vim'
 " distraction-free writing in vim
 Plug 'junegunn/goyo.vim'
-" swap words
-Plug 'kurkale6ka/vim-swap'
 " highlights yank-ed stuff
 Plug 'machakann/vim-highlightedyank'
 " print the signature onto command line space/virtual print during completion
@@ -257,8 +235,6 @@ Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-fnr'
 " preview all the things inside your registers
 Plug 'junegunn/vim-peekaboo'
-" use ALE for linting
-" Plug 'dense-analysis/ale'
 " create presentations with vimdeck. Note that you need to install the gem
 " first
 Plug 'tybenz/vimdeck'
@@ -278,11 +254,11 @@ Plug 'dstein64/vim-startuptime'
 Plug 'junegunn/vim-slash'
 if has('nvim')
     Plug 'ncm2/float-preview.nvim'
-    " Plug 'liuchengxu/vim-clap', {'do': 'Clap'}
     Plug 'rhysd/git-messenger.vim'
     Plug 'sebdah/vim-delve', {'for': 'go'}
     Plug 'pechorin/any-jump.nvim'
     Plug 'thaerkh/vim-indentguides'
+    Plug 'voldikss/vim-floaterm'
 endif
 
 call plug#end()
@@ -404,7 +380,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> ggd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
@@ -1004,6 +980,20 @@ highlight CocWarningSign cterm=bold ctermfg=130 guifg=#ff922b
 
 " sort words on a line
 vnoremap <leader>s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
+
+" float-term
+" ----------
+" From the help page
+" This plugin leaves an empty buffer on startify window
+" Put this code in vimrc
+autocmd User Startified setlocal buflisted
+nnoremap <silent><leader><leader>t :FloatermToggle<cr>
+tnoremap <silent><leader><leader>t <C-\><C-n>:FloatermToggle<cr>
+let g:floaterm_wintitle=0
+" support loading lazygit directly from inside vim
+nnoremap <silent><leader><leader>g :FloatermNew lazygit<cr>
+" support loading vit (taskwarrior) directly from inside vim
+nnoremap <silent><leader><leader>v :FloatermNew vit<cr>
 
 "
 "END"
