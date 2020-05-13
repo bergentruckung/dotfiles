@@ -4,6 +4,7 @@
 " " |_____|___|___|___|_|___|___|___|.vim "
 "
 " " Low-contrast dark Vim color scheme using Seoul Colors "
+" " -- modified by bergentruckung --"
 "
 " File:         seoul256.vim
 " URL:          github.com/junegunn/seoul256.vim
@@ -437,3 +438,13 @@ if s:colors_name != g:colors_name || s:background == s:style
 else
   let &background = s:background
 endif
+
+
+highlight Comment ctermfg=darkgrey
+highlight IncSearch ctermfg=172
+highlight LineNr ctermfg=59
+highlight Pmenu ctermfg=grey ctermbg=black
+highlight Pmenusel ctermfg=black ctermbg=109
+highlight Visual term=reverse cterm=reverse
+highlight WildMenu ctermfg=black ctermbg=white
+highlight link BufTabLineActive DiffDelete
