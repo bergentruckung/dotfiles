@@ -259,6 +259,7 @@ if has('nvim')
     Plug 'pechorin/any-jump.nvim'
     Plug 'thaerkh/vim-indentguides'
     Plug 'voldikss/vim-floaterm'
+    Plug 'direnv/direnv.vim'
 endif
 
 call plug#end()
@@ -983,17 +984,19 @@ vnoremap <leader>s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR
 
 " float-term
 " ----------
-" From the help page
-" This plugin leaves an empty buffer on startify window
-" Put this code in vimrc
-autocmd User Startified setlocal buflisted
-nnoremap <silent><leader><leader>t :FloatermToggle<cr>
-tnoremap <silent><leader><leader>t <C-\><C-n>:FloatermToggle<cr>
+nnoremap <silent><leader><leader>T :FloatermNew --name=terminal direnv reload && zsh<cr>
+nnoremap <silent><leader><leader>t :FloatermShow terminal<cr>
+tnoremap <silent><leader><leader>t <C-\><C-n>:FloatermHide terminal<cr>
 let g:floaterm_wintitle=0
 " support loading lazygit directly from inside vim
-nnoremap <silent><leader><leader>g :FloatermNew lazygit<cr>
+nnoremap <silent><leader><leader>G :FloatermNew --name=lazygit lazygit<cr>
+nnoremap <silent><leader><leader>g :FloatermShow lazygit<cr>
+tnoremap <silent><leader><leader>g <C-\><C-n>:FloatermHide lazygit<cr>
+
 " support loading vit (taskwarrior) directly from inside vim
-nnoremap <silent><leader><leader>v :FloatermNew vit<cr>
+nnoremap <silent><leader><leader>V :FloatermNew --name=vit vit project:$PROJECT_NAME<cr>
+nnoremap <silent><leader><leader>v :FloatermShow vit<cr>
+tnoremap <silent><leader><leader>v <C-\><C-n>:FloatermHide vit<cr>
 
 "
 "END"
