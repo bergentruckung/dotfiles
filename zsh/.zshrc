@@ -50,9 +50,11 @@ alias less="less -Ri "
 alias History="history -fD"
 alias hist=History
 alias tasks=task list
+alias jobs="jobs -ld"
+alias vi="nvim -u NONE"
 
 # env variables
-export EDITOR=vim
+export EDITOR=nvim
 
 # Autoloads
 autoload -U colors && colors
@@ -67,6 +69,11 @@ export PS1="%(!.%F{green}root@%2m%f:%~.%(1j.*.)%B%2m%b:%B%F{cyan}%15<...<%~%f%b)
 export RPS1="%F{cyan}%B%t%b%f[%F{blue}%B%?%b%f]"
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 export PROMPT_EOL_MARK="%F{yellow}%B%K{black}%S%#%s%k%b%k%f"
+
+# Elapsed time with REPORTTIME and TIMEFMT
+# only report for commands that take more than a second to complete
+REPORTTIME=1
+TIMEFMT="$fg[magenta]-- elapsed time: %*Es --"
 
 TRAPINT() {
     print -n -u2 '^C'
@@ -172,7 +179,7 @@ unset -f bind-git-helper
 
 
 # override bat config file
-export BAT_CONFIG_PATH="~/dotfiles/bat.conf"
+export BAT_CONFIG_PATH="~/.dotfiles/bat.conf"
 
 function fdbat() {
     fd $* | fzf --preview 'bat --color="always" {}'
@@ -184,10 +191,10 @@ autoload -Uz compinit
 compinit
 
 # Direnv
-eval "$(direnv hook zsh)"
+which direnv >/dev/null && eval "$(direnv hook zsh)"
 
 # fasd
-eval "$(fasd --init auto)"
+which fasd >/dev/null && eval "$(fasd --init auto)"
 if [[ -f ~/.fzf/fasd.plugin.zsh ]]; then source ~/.fzf/fasd.plugin.zsh; fi
 
 show_virtual_env() {
@@ -195,28 +202,46 @@ show_virtual_env() {
     echo "($(basename $VIRTUAL_ENV))"
   fi
 }
+
+function cdfmr () {
+    selected=$(awk '{$1=""; print $0}' ~/.fmr.cache | column -t | fzf --ansi)
+    cd $(echo $selected | cut -d" " -f1)
+}
+
+
 # uncomment this is you want PS1 to display the virtualenv name
 # PS1='$(show_virtual_env)'$PS1
 
 # zsh-syntax-highlighting
+if [[ -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]]; then 
+    test -e ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
+    ZSH_HIGHLIGHT_STYLES[alias]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[builtin]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=blue
+    ZSH_HIGHLIGHT_STYLES[command-substitution]=fg=blue
+    ZSH_HIGHLIGHT_STYLES[command]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[comment]=fg=white,bold
+    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=default
+    ZSH_HIGHLIGHT_STYLES[function]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
+    ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=default
+    ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,bold
+    ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=blue,bold
+    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=default
+    ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline,bold
+fi
 
-if [[ -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]]; then source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; fi
-# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
-ZSH_HIGHLIGHT_STYLES[alias]=fg=blue,bold
-ZSH_HIGHLIGHT_STYLES[builtin]=fg=blue,bold
-ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=blue
-ZSH_HIGHLIGHT_STYLES[command-substitution]=fg=blue
-ZSH_HIGHLIGHT_STYLES[command]=fg=blue,bold
-ZSH_HIGHLIGHT_STYLES[comment]=fg=white,bold
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=default
-ZSH_HIGHLIGHT_STYLES[function]=fg=blue,bold
-ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
-ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=default
-ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,bold
-ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=blue,bold
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=default
-ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline,bold
+# zsh-autosuggestions
+if [[ -f ~/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]]; then
+    test -e ~/zsh-autosuggestions/zsh-autosuggestions.zsh && source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
+    ZSH_AUTOSUGGEST_USE_ASYNC=1
+    bindkey -M viins "^j" autosuggest-execute
+    bindkey -M viins "^k" autosuggest-accept
+fi
 
 # sudo prompt
 export SUDO_PROMPT="$(tput setaf 14)$(tput setab 16)> Behind this door must be the elevator to the King's castle. You're filled with determination.
 > [sudo] password for %p: $(tput sgr0)"
+
+if [[ -f ~/.Xdefaults ]]; then xrdb -merge ~/.Xdefaults; fi
