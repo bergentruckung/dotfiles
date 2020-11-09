@@ -9,14 +9,30 @@ if has("nvim")
     set runtimepath^=~/.vim
 endif
 
+"Colors and what-nots"
+"--------------------"
+let g:rehash256 = 1
+set background=dark
+let g:seoul256_background = 236
+colorscheme iceberg
+" let g:embark_terminal_italics = 1
+
+set termguicolors
+" colorscheme Spink
+set nocursorline
+
+"Macros"
+"------"
+nnoremap <leader>gcc :norm @l
+
 "
 "Buffers"
 "-------"
 set confirm
 set hidden
-nnoremap <BS> <C-^>
-nnoremap <silent> <Tab> :bnext<cr>
-nnoremap <silent> <S-Tab> :bprevious<cr>
+" nnoremap <BS> <C-^>
+" nnoremap <silent> <Tab> :bnext<cr>
+nnoremap <silent> <S-Tab> <c-o>
 
 "Searching"
 "---------"
@@ -24,6 +40,8 @@ set incsearch
 set ignorecase
 set smartcase
 set infercase
+set nomodeline
+set nowrapscan
 
 "Leader mapping
 "--------------
@@ -85,6 +103,8 @@ set matchtime=2
 let &showbreak = '--- '
 set listchars=tab:▸\ ,eol:¬,trail:•,extends:»,precedes:«
 set breakindent
+set inccommand=nosplit
+set pumheight=15
 
 
 " filetype plugin indent on
@@ -152,6 +172,7 @@ iab abhi Abhijith Sethuraj
 iab Author: Author: Abhijith Sethuraj <abhijithsethuraj4@gmail.com>
 iab minauth Author: bergentruckung
 iab logrus log "github.com/sirupsen/logrus"
+iab cutf # -*- coding: utf-8 -*-<CR>
 
 "Turn off bell"
 "-------------"
@@ -194,7 +215,7 @@ Plug 'honza/vim-snippets', {'for': 'python'}
 " gitgutter
 Plug 'airblade/vim-gitgutter'
 " clang_complete
-Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp']}
+" Plug 'Rip-Rip/clang_complete', {'for': ['c', 'cpp']}
 " vim-cpp-enhanced-highlight"
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': 'cpp'}
 " nix support
@@ -203,9 +224,10 @@ Plug 'LnL7/vim-nix', {'for': 'nix'}
 Plug 'tpope/vim-obsession'
 " this should probably be a builtin plugin
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'simnalamburt/vim-mundo', {'do': 'MundoShow'}
 Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Syntax highlighting for jinja2 "
 Plug 'Glench/Vim-Jinja2-Syntax', {'for': 'jinja'}
 " git commit browser "
@@ -252,18 +274,45 @@ Plug 'ap/vim-css-color'
 Plug 'moll/vim-bbye'
 Plug 'bronson/vim-visual-star-search'
 Plug 'kkoomen/vim-doge'
-Plug 'ap/vim-buftabline'
+" Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-dispatch'
 Plug 'dstein64/vim-startuptime'
 Plug 'junegunn/vim-slash'
+" Plug 'SirVer/ultisnips'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" Plug 'arcticicestudio/nord-vim'
+Plug 'gyim/vim-boxdraw'
+" Plug 'embark-theme/vim', { 'as': 'embark' }
+Plug 'challenger-deep-theme/vim'
+Plug 'mushanyoung/vim-windflower'
+" Plug 'flazz/vim-colorschemes'
+
 if has('nvim')
     Plug 'ncm2/float-preview.nvim'
     Plug 'rhysd/git-messenger.vim'
     Plug 'sebdah/vim-delve', {'for': 'go'}
-    Plug 'pechorin/any-jump.nvim'
+    " Plug 'pechorin/any-jump.nvim'
     Plug 'thaerkh/vim-indentguides'
     Plug 'voldikss/vim-floaterm'
     Plug 'direnv/direnv.vim'
+    " Plug 'neovim/nvim-lsp'
+    " Plug 'nvim-lua/completion-nvim'
+    " Plug 'nvim-lua/diagnostic-nvim'
+    Plug 'jpalardy/vim-slime'
+    Plug 'lambdalisue/fern.vim'
+    Plug 'psliwka/vim-smoothie'
+    Plug 'wellle/context.vim'
+
+    " Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+    " Plug 'co1ncidence/mountaineer.vim'
+
+    " Plug 'lambdalisue/fern-mapping-project-top.vim', { 'do': 'Fern' }
+    " Plug 'nvim-treesitter/nvim-treesitter'
+    set packpath+=",~/.vim/plugged" 
+    packadd nvim-lsp
+    packadd completion-nvim
+    packadd diagnostic-nvim
+    packadd nvim-treesitter
 endif
 
 call plug#end()
@@ -331,8 +380,8 @@ let g:SimpylFold_fold_docstring = 0
 
 "Highlight my errors
 " -------------------
-highlight SpellBad term=reverse ctermbg=141
-highlight ColorColumn ctermbg=141
+" highlight SpellBad term=reverse ctermbg=141
+" highlight ColorColumn ctermbg=141
 
 if has('gui_running')
     set clipboard=unnamedplus
@@ -343,7 +392,7 @@ endif
 "Clang complete"
 "--------------"
 " path to directory where library can be found
-let g:clang_library_path='/usr/lib64/llvm/'
+" let g:clang_library_path='/usr/lib64/llvm/'
 
 "vim-cpp-enhanced highlight"
 "--------------------------"
@@ -369,83 +418,84 @@ imap <silent><CR> <CR><Plug>AutoPairsReturn
 "--------
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"inoremap <silent><expr> <TAB>
+"            \ pumvisible() ? "\<C-n>" :
+"            \ <SID>check_back_space() ? "\<TAB>" :
+"            \ coc#refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+"function! s:check_back_space() abort
+"    let col = col('.') - 1
+"    return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+"" Use `[g` and `]g` to navigate diagnostics
+"nmap <silent> [g <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Remap keys for gotos
-nmap <silent> ggd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+"" Remap keys for gotos
+"nmap <silent> ggd <Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+"" Use K to show documentation in preview window
+"nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocActionAsync('doHover')
-    endif
-endfunction
+"function! s:show_documentation()
+"    if (index(['vim','help'], &filetype) >= 0)
+"        execute 'h '.expand('<cword>')
+"    else
+"        call CocActionAsync('doHover')
+"    endif
+"endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd bergentruckung CursorHold * silent call CocActionAsync('highlight')
+"" Highlight symbol under cursor on CursorHold
+"autocmd bergentruckung CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+"" Remap for rename current word
+"nmap <leader>rn <Plug>(coc-rename)
 
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
+"xmap if <Plug>(coc-funcobj-i)
+"xmap af <Plug>(coc-funcobj-a)
+"omap if <Plug>(coc-funcobj-i)
+"omap af <Plug>(coc-funcobj-a)
 
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-nnoremap <leader>F :Format<cr>
+"" Use `:Format` to format current buffer
+"command! -nargs=0 Format :call CocAction('format')
+"nnoremap <leader>F :Format<cr>
 
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+"" Use `:Fold` to fold current buffer
+"command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+"" use `:OR` for organize import of current buffer
+"command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"" Add status line support, for integration with other plugin, checkout `:h coc-status`
+"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-nnoremap <leader>; :<C-u>CocList commands<cr>
-nnoremap <leader>' :<C-u>CocList<cr>
+"nnoremap <leader>; :<C-u>CocList commands<cr>
+"nnoremap <leader>' :<C-u>CocList<cr>
 
-autocmd bergentruckung Filetype go nnoremap <leader>l :GoFmt<cr>
-set updatetime=300
-set signcolumn=yes
-set shortmess+=c
+"autocmd bergentruckung Filetype go nnoremap <leader>l :GoFmt<cr>
+"set updatetime=300
+"set signcolumn=yes
+"set shortmess+=c
 
-"coc-snippets"
-"------------
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-j> <Plug>(coc-snippets-select)
+""coc-snippets"
+""------------
+"let g:coc_snippet_next = '<c-j>'
+"let g:coc_snippet_prev = '<c-k>'
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
+"imap <C-l> <Plug>(coc-snippets-expand)
+"vmap <C-j> <Plug>(coc-snippets-select)
 
 
 "vim-obsession"
 "-------------"
-let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = '##OBSESSED##'
+" let g:airline#extensions#obsession#enabled = 1
+" let g:airline#extensions#obsession#indicator_text = '(_8-(|)'
+let g:obsession_no_bufenter = 1
 nnoremap <leader>o :Obsession<cr>
 augroup sourcesession
         autocmd!
@@ -492,31 +542,15 @@ nmap <leader> <c-\> :cs find s <c-r>=expand("<cword>")<cr><cr>1<cr><cr>
 " show a list of where function is called
 nmap <leader> <c-_> :cs find c <c-r>=expand("<cword>")<cr><cr>"colorscheme"
 
-" look and feel
-"-------------"
-let g:rehash256 = 1
-" syntax enable
-" highlight colorline ctermbg=black
-set background=dark
-" only if you use seoul256
-let g:seoul256_background = 236
-colorscheme seoul256
-set cursorline
-highlight WildMenu ctermfg=black ctermbg=white
-highlight Comment ctermfg=darkgrey
-highlight IncSearch ctermfg=172
-highlight LineNr ctermfg=59
-highlight Visual term=reverse cterm=reverse
 " I'd like my autucompletion menu to have custom colors "
 " Use this for anything other than seoul256
 " highlight pmenu ctermbg=black ctermfg=gray
 " highlight pmenusel ctermbg=darkgray ctermfg=black
 " Use this for seoul256
 " highlight Pmenu ctermbg=237 ctermfg=59
-highlight Pmenusel ctermfg=black ctermbg=109
-highlight Pmenu ctermfg=grey ctermbg=black
+" highlight Pmenusel ctermfg=black ctermbg=109
+" highlight Pmenu ctermfg=grey ctermbg=black
 " highlight BufTabLineActive cterm=bold ctermfg=187 guifg=#DFBC72
-highlight link BufTabLineActive DiffDelete
 
 " close quick fix window if that's the only one remaining
 aug QFClose
@@ -649,9 +683,9 @@ autocmd bergentruckung  FileType fzf set laststatus=0 noshowmode noruler
 
 function! s:fzf_statusline()
     " Override statusline as you like
-    highlight fzf1 ctermfg=161 ctermbg=251
-    highlight fzf2 ctermfg=23 ctermbg=251
-    highlight fzf3 ctermfg=237 ctermbg=251
+    " highlight fzf1 ctermfg=161 ctermbg=251
+    " highlight fzf2 ctermfg=23 ctermbg=251
+    " highlight fzf3 ctermfg=237 ctermbg=251
     setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 
@@ -710,7 +744,7 @@ autocmd bergentruckung FileType fzf set noshowmode noruler nonu norelativenumber
 
 " Enable floating window support for fzf
 if has('nvim') && exists('&winblend')
-  hi NormalFloat guibg=None
+  " hi NormalFloat guibg=None
   " if exists('g:fzf_colors.bg')
   "   call remove(g:fzf_colors, 'bg')
   " endif
@@ -805,8 +839,6 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
-highlight netrwExe cterm=bold ctermfg=187 ctermbg=23 gui=bold guifg=#DFDEBD guibg=#007173
-highlight netrwDir ctermfg=252 ctermbg=24 guifg=#D9D9D9 guibg=#007299
 
 "ALE"
 "---
@@ -834,7 +866,8 @@ highlight netrwDir ctermfg=252 ctermbg=24 guifg=#D9D9D9 guibg=#007299
 au bergentruckung FileType vorg <buffer> colorscheme seoul256
 au bergentruckung Filetype vorg <buffer> set nofoldenable
 
-let g:python3_host_prog="/usr/local/bin/python3"
+let g:loaded_python_provider = 0
+let g:python3_host_prog="~/py3_virtualenvs/nvim/bin/python3"
 
 "git-messenger"
 "-------------
@@ -843,29 +876,35 @@ nnoremap <silent> <Leader>g :GitMessenger<cr>
 "floating-preview window"
 "-----------------------
 let g:float_preview#docked = 0
+let g:float_preview#max_width = 100
+let g:float_preview#max_height = 100
+
 
 "coc-explorer"
 "------------
-nnoremap <leader>` :CocCommand explorer<cr>
+" nnoremap <leader>` :CocCommand explorer<cr>
 
 "statusline"
 "----------
+function! StatuslineGit()
+  let l:branchname = fugitive#head(6)
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
 set statusline=
 set statusline+=%#MoreMsg#
-set statusline+=[%{fugitive#head(6)}]
+set statusline+=%{StatuslineGit()}
 set statusline+=%#StatusLine#
-set statusline+=%r%<%F%h%m%r%=%y\ \ %l,%c%V\ %P
-set statusline+=\ %{ObsessionStatus('--tracked--','--untracked--')}\ 
-set statusline+=%{coc#status()}
+set statusline+=\ %{ObsessionStatus('•tracked•','•untracked•')}\ 
+set statusline+=%=%f\ %m
+set statusline+=%=%r%y\ [%l:\ %c]\ 
+" set statusline+=%{coc#status()}
 
 "buftabline
 "----------
-let g:buftabline_numbers = 1
-let g:buftabline_indicators = 1
-let g:buftabline_separators = 1
-highlight BufTabLineCurrent cterm=bold,reverse ctermfg=95 ctermbg=187 gui=bold,reverse guifg=#9A7372 guibg=#DFDEBD
-highlight BufTabLineHidden ctermfg=179 guifg=#DFBC72
-highlight BufTabLineActive ctermfg=179 guifg=#DFBC72
+" let g:buftabline_numbers = 1
+" let g:buftabline_indicators = 1
+" let g:buftabline_separators = 1
 
 "vim-doge
 "--------
@@ -875,60 +914,70 @@ let g:doge_doc_standard_python = 'reST'
 "------------
 cabbr gcommit Dispatch git commit
 cabbr gcommitm Dispatch git commit -m
+nnoremap -- :Dispatch<cr>
+autocmd FileType python let b:dispatch = 'python3 %'
+autocmd FileType go let b:dispatch = '/usr/bin/go run %'
 
 
 "any-jump.nvim
 "-------------
-" Jump to definition under cursor
-nnoremap <leader>j :AnyJump<CR>
+" " Jump to definition under cursor
+" nnoremap <leader>j :AnyJump<CR>
 
-" open previous opened file (after jump)
-nnoremap <leader>k :AnyJumpBack<CR>
+" " open previous opened file (after jump)
+" nnoremap <leader>k :AnyJumpBack<CR>
 
 " open last closed search window again
 " nnoremap <leader>al :AnyJumpLastResults<CR>
 "
-au FileType any-jump nnoremap <buffer> o :call g:AnyJumpHandleOpen()<cr>
-au FileType any-jump nnoremap <buffer><CR> :call g:AnyJumpHandleOpen()<cr>
-au FileType any-jump nnoremap <buffer> p :call g:AnyJumpHandlePreview()<cr>
-au FileType any-jump nnoremap <buffer> <tab> :call g:AnyJumpHandlePreview()<cr>
-au FileType any-jump nnoremap <buffer> q :call g:AnyJumpHandleClose()<cr>
-au FileType any-jump nnoremap <buffer> <esc> :call g:AnyJumpHandleClose()<cr>
-au FileType any-jump nnoremap <buffer> u :call g:AnyJumpHandleUsages()<cr>
-au FileType any-jump nnoremap <buffer> U :call g:AnyJumpHandleUsages()<cr>
-au FileType any-jump nnoremap <buffer> b :call g:AnyJumpToFirstLink()<cr>
-au FileType any-jump nnoremap <buffer> T :call g:AnyJumpToggleGrouping()<cr>
-au FileType any-jump nnoremap <buffer> a :call g:AnyJumpToggleAllResults()<cr>
-au FileType any-jump nnoremap <buffer> A :call g:AnyJumpToggleAllResults()<cr>
+" au FileType any-jump nnoremap <buffer> o :call g:AnyJumpHandleOpen()<cr>
+" au FileType any-jump nnoremap <buffer><CR> :call g:AnyJumpHandleOpen()<cr>
+" au FileType any-jump nnoremap <buffer> p :call g:AnyJumpHandlePreview()<cr>
+" au FileType any-jump nnoremap <buffer> <tab> :call g:AnyJumpHandlePreview()<cr>
+" au FileType any-jump nnoremap <buffer> q :call g:AnyJumpHandleClose()<cr>
+" au FileType any-jump nnoremap <buffer> <esc> :call g:AnyJumpHandleClose()<cr>
+" au FileType any-jump nnoremap <buffer> u :call g:AnyJumpHandleUsages()<cr>
+" au FileType any-jump nnoremap <buffer> U :call g:AnyJumpHandleUsages()<cr>
+" au FileType any-jump nnoremap <buffer> b :call g:AnyJumpToFirstLink()<cr>
+" au FileType any-jump nnoremap <buffer> T :call g:AnyJumpToggleGrouping()<cr>
+" au FileType any-jump nnoremap <buffer> a :call g:AnyJumpToggleAllResults()<cr>
+" au FileType any-jump nnoremap <buffer> A :call g:AnyJumpToggleAllResults()<cr>
 
-" Show line numbers in search rusults
-let g:any_jump_list_numbers = v:true
+" " Show line numbers in search rusults
+" let g:any_jump_list_numbers = v:true
 
-" Auto search usages
-let g:any_jump_usages_enabled = v:false
+" " Auto search usages
+" let g:any_jump_usages_enabled = v:false
 
-" Auto group results by filename
-let g:any_jump_grouping_enabled = v:false
+" " Auto group results by filename
+" let g:any_jump_grouping_enabled = v:false
 
-" Amount of preview lines for each search result
-let g:any_jump_preview_lines_count = 5
+" " Amount of preview lines for each search result
+" let g:any_jump_preview_lines_count = 5
 
-" Max search results, other results can be opened via [a]
-let g:any_jump_max_search_results = 7
+" " Max search results, other results can be opened via [a]
+" let g:any_jump_max_search_results = 7
 
-" Prefered search engine: rg or ag
-let g:any_jump_search_prefered_engine = 'rg'
-" Ungrouped results ui variants:
-" - 'filename_first'
-" - 'filename_last'
+" " Prefered search engine: rg or ag
+" let g:any_jump_search_prefered_engine = 'rg'
+" " Ungrouped results ui variants:
+" " - 'filename_first'
+" " - 'filename_last'
 
-let g:any_jump_results_ui_style = 'filename_first' "
+" let g:any_jump_results_ui_style = 'filename_first' "
 
 
 "python specific
 au bergentruckung Filetype python setlocal colorcolumn=79 ts=4 et sw=4
-au bergentruckung BufWritePre *.py :call CocAction('runCommand', 'editor.action.organizeImport')
-au bergentruckung BufWritePre *.py :call CocAction('format')
+" au bergentruckung BufWritePre *.py :call CocAction('runCommand', 'editor.action.organizeImport')
+" au bergentruckung BufWritePre *.py :call CocAction('format')
+let @L = 'A	  # noqa'
+function! FixLineTooLong()
+    let curpos = getpos('.')
+    norm @L
+    call setpos('.', curpos)
+endfunction
+au bergentruckung Filetype python nnoremap <leader>L :call FixLineTooLong()<cr>
 
 
 "Neovim terminal customizations
@@ -972,16 +1021,14 @@ autocmd BufReadPost *
     \   execute "normal! g`\"" |
     \ endif
 
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-
-autocmd InsertLeave,WinEnter * set cursorline
-autocmd InsertEnter,WinLeave * set nocursorline
+" autocmd InsertLeave,WinEnter * set cursorline
+" autocmd InsertEnter,WinLeave * set nocursorline
 
 " indentguides"
-" ------------
+" -------------
 let g:indentguides_spacechar = '|'
 
-highlight CocWarningSign cterm=bold ctermfg=130 guifg=#ff922b
+" highlight CocWarningSign cterm=bold ctermfg=130 guifg=#ff922b
 
 " sort words on a line
 vnoremap <leader>s d:execute 'normal i' . join(sort(split(getreg('"'))), ' ')<CR>
@@ -1002,6 +1049,192 @@ nnoremap <silent><leader><leader>V :FloatermNew --name=vit vit project:$PROJECT_
 nnoremap <silent><leader><leader>v :FloatermShow vit<cr>
 tnoremap <silent><leader><leader>v <C-\><C-n>:FloatermHide vit<cr>
 
+" nvim-completion"
+" ----------------
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+" Enable tab for completion
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
+
+" possible value: 'UltiSnips', 'Neosnippet'
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_matching_ignore_case = 1
+
+"nvim-lsp
+"--------
+nnoremap <silent> gl    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gk <cmd>lua vim.lsp.buf.signature_help()<CR>
+inoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
+autocmd bergentruckung InsertLeave * if pumvisible() == 0|pclose|endif
+" lua require'nvim_lsp'.gopls.setup{on_attach=require'diagnostic'.on_attach}
+" lua require'nvim_lsp'.pyls.setup{on_attach=require'diagnostic'.on_attach}
+" lua require'nvim_lsp'.pyls.setup{on_attach=require'completion'.on_attach}
+lua << EOF
+local nvim_lsp = require'nvim_lsp'
+nvim_lsp.pyls.setup{
+    on_attach=require'diagnostic'.on_attach, require'completion'.on_attach
+}
+EOF
+
+autocmd bergentruckung Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd bergentruckung Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc
+" autocmd bergentruckung BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)
+
+
+" function! s:reload_nvim_lsp()
+"     lua vim.lsp.stop_client(vim.lsp.get_active_clients())
+"     edit
+" endfunction
+" command! ReloadLsp call s:reload_nvim_lsp()
+
+
+"diagnostic-nvim
+"---------------
+let g:space_before_virtual_text = 5
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_auto_popup_while_jump = 0
+nnoremap <silent> <leader>j :NextDiagnosticCycle<cr>
+nnoremap <silent> <leader>k :PrevDiagnosticCycle<cr>
+
+call sign_define("LspDiagnosticsErrorSign", {"text" : "E", "texthl" : "LspDiagnosticsError"})
+call sign_define("LspDiagnosticsWarningSign", {"text" : "W", "texthl" : "LspDiagnosticsWarning"})
+call sign_define("LspDiagnosticInformationSign", {"text" : "I", "texthl" : "LspDiagnosticsInformation"})
+call sign_define("LspDiagnosticHintSign", {"text" : "H", "texthl" : "LspDiagnosticsHint"})
+
+highlight link LspDiagnosticsWarning WarningMsg
+highlight link LspDiagnosticsError ErrorMsg
+
+"vim-slime
+"---------
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
+let g:slime_dont_ask_default = 1
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{right-of}"}
+let g:slime_python_ipython = 1
+
+"fern.vim
+"--------
+nnoremap <silent><leader>` :Fern -drawer -reveal=% -toggle %:h<cr>
+
+function! s:init_fern() abort
+    nnoremap <c-l> <c-w>l
+    setlocal nolist
+    setlocal nonu
+    setlocal norelativenumber
+    let &l:statusline="> Fern"
+    " let g:fern#renderer#default#leading = " "
+    " let g:fern#renderer#default#root_symbol = ""
+    " let g:fern#renderer#default#leaf_symbol = "\\_ "
+    " let g:fern#renderer#default#collapsed_symbol = "\\_ + "
+    " let g:fern#renderer#default#expanded_symbol = "\\_ - "
+endfunction
+
+augroup my-fern
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
+
+function! s:on_highlight() abort
+  " highlight link FernRootSymbol Pmenu
+  " highlight link FernRootText   Pmenu
+  " highlight link FernBranchText Pmenu
+  " highlight link FernBranchSymbol Pmenu
+  " highlight link FernMarkedText PmenuSel
+endfunction
+
+augroup my-fern-highlight
+  autocmd!
+  autocmd User FernHighlight call s:on_highlight()
+augroup END
+
+
+"highlighted yank
+"----------------
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+augroup END
+
+"tree-sitter"
+:lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = false,
+        disable = { 'c', 'rust' },
+    },
+    incremental_selection = {
+        enable = true,
+        disable = { 'cpp', 'lua' },
+        keymaps = {                       -- mappings for incremental selection (visual mappings)
+          init_selection = 'gnn',         -- maps in normal mode to init the node/scope selection
+          node_incremental = "grn",       -- increment to the upper named parent
+          scope_incremental = "grc",      -- increment to the upper scope (as defined in locals.scm)
+          node_decremental = "grm",      -- decrement to the previous node
+        }
+    },
+    refactor = {
+        highlight_definitions = { enable = true },
+        highlight_current_scope = { enable = false },
+        navigation = {
+            enable = true,
+            keymaps = {
+              goto_definition = "gnd",
+              list_definitions = "gnD",
+              goto_next_usage = "<a-*>",
+              goto_previous_usage = "<a-#>",
+            },
+        },
+        smart_rename = {
+            enable = true,
+            keymaps = {
+              smart_rename = "grr",
+            },
+        },
+        textobjects = {
+            select = {
+              enable = true,
+              keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
+
+                -- Or you can define your own textobjects like this
+                ["iF"] = {
+                  python = "(function_definition) @function",
+                },
+              },
+            },
+      },
+
+    },
+}
+EOF
 "
 "END"
 "---"
