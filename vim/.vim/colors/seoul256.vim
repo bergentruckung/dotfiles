@@ -443,8 +443,31 @@ endif
 highlight Comment ctermfg=darkgrey
 highlight IncSearch ctermfg=172
 highlight LineNr ctermfg=59
-highlight Pmenu ctermfg=grey ctermbg=black
-highlight Pmenusel ctermfg=black ctermbg=109
+highlight Pmenu ctermfg=173 guifg=#E19972 ctermbg=235
+highlight Pmenusel cterm=bold ctermfg=235 ctermbg=173 
+highlight PmenuSbar ctermbg=237
+highlight PmenuThumb ctermbg=59
 highlight Visual term=reverse cterm=reverse
 highlight WildMenu ctermfg=black ctermbg=white
 highlight link BufTabLineActive DiffDelete
+highlight SpellBad term=reverse ctermbg=141
+highlight ColorColumn ctermbg=141
+highlight link BufTabLineActive DiffDelete
+highlight fzf1 ctermfg=161 ctermbg=251
+highlight fzf2 ctermfg=23 ctermbg=251
+highlight fzf3 ctermfg=237 ctermbg=251
+highlight netrwExe cterm=bold ctermfg=187 ctermbg=23 gui=bold guifg=#DFDEBD guibg=#007173
+highlight netrwDir ctermfg=252 ctermbg=24 guifg=#D9D9D9 guibg=#007299
+highlight BufTabLineCurrent cterm=bold,reverse ctermfg=95 ctermbg=187 gui=bold,reverse guifg=#9A7372 guibg=#DFDEBD
+highlight BufTabLineHidden ctermfg=179 guifg=#DFBC72
+highlight BufTabLineActive ctermfg=179 guifg=#DFBC72
+highlight LspDiagnosticsError ctermbg=235 ctermfg=red
+highlight LspDiagnosticsWarning ctermbg=235 ctermfg=blue
+highlight LspDiagnosticsInformation ctermbg=235 ctermfg=white cterm=bold
+highlight LspDiagnosticsHint ctermbg=235 ctermfg=yellow cterm=bold
+highlight link FernRootSymbol Pmenu
+highlight link FernRootText   Pmenu
+highlight link FernBranchText Pmenu
+" highlight link FernBranchSymbol Pmenu
+highlight link FernMarkedText PmenuSel
+highlight NormalFloat guibg=None
