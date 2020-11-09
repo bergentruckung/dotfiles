@@ -248,7 +248,7 @@ Plug 'ap/vim-css-color'
 Plug 'moll/vim-bbye'
 Plug 'bronson/vim-visual-star-search'
 Plug 'kkoomen/vim-doge'
-Plug 'ap/vim-buftabline'
+" Plug 'ap/vim-buftabline'
 Plug 'tpope/vim-dispatch'
 Plug 'dstein64/vim-startuptime'
 Plug 'junegunn/vim-slash'
@@ -260,6 +260,7 @@ if has('nvim')
     Plug 'thaerkh/vim-indentguides'
     Plug 'voldikss/vim-floaterm'
     Plug 'direnv/direnv.vim'
+    Plug 'floobits/floobits-neovim'
 endif
 
 call plug#end()
@@ -398,7 +399,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd bergentruckung CursorHold * silent call CocActionAsync('highlight')
+" autocmd bergentruckung CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -419,7 +420,7 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 nnoremap <leader>; :<C-u>CocList commands<cr>
 nnoremap <leader>' :<C-u>CocList<cr>
@@ -496,7 +497,7 @@ let g:rehash256 = 1
 set background=dark
 " only if you use seoul256
 let g:seoul256_background = 236
-colorscheme seoul256
+colorscheme pablo
 set cursorline
 highlight WildMenu ctermfg=black ctermbg=white
 highlight Comment ctermfg=darkgrey
@@ -852,7 +853,7 @@ set statusline+=[%{fugitive#head(6)}]
 set statusline+=%#StatusLine#
 set statusline+=%r%<%F%h%m%r%=%y\ \ %l,%c%V\ %P
 set statusline+=\ %{ObsessionStatus('--tracked--','--untracked--')}\ 
-set statusline+=%{coc#status()}
+" set statusline+=%{coc#status()}
 
 "buftabline
 "----------
@@ -922,9 +923,9 @@ let g:any_jump_results_ui_style = 'filename_first' "
 
 
 "python specific
-au bergentruckung Filetype python setlocal colorcolumn=79 ts=4 et sw=4
-au bergentruckung BufWritePre *.py :call CocAction('runCommand', 'editor.action.organizeImport')
-au bergentruckung BufWritePre *.py :call CocAction('format')
+" au bergentruckung Filetype python setlocal colorcolumn=79 ts=4 et sw=4
+" au bergentruckung BufWritePre *.py :call CocAction('runCommand', 'editor.action.organizeImport')
+" au bergentruckung BufWritePre *.py :call CocAction('format')
 
 
 "Neovim terminal customizations
@@ -970,7 +971,7 @@ autocmd BufReadPost *
 
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
-autocmd InsertLeave,WinEnter * set cursorline
+" autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
 " indentguides"
@@ -997,6 +998,8 @@ tnoremap <silent><leader><leader>g <C-\><C-n>:FloatermHide lazygit<cr>
 nnoremap <silent><leader><leader>V :FloatermNew --name=vit vit project:$PROJECT_NAME<cr>
 nnoremap <silent><leader><leader>v :FloatermShow vit<cr>
 tnoremap <silent><leader><leader>v <C-\><C-n>:FloatermHide vit<cr>
+
+au BufRead odin_model_* set filetype=yaml
 
 "
 "END"
