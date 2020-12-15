@@ -17,4 +17,3 @@ require("styles")
 
 -- Nvim options
 require("options")
-
