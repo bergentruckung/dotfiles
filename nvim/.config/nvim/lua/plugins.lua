@@ -1,7 +1,5 @@
 vim.cmd [[packadd packer.nvim]]
 
-vim._update_package_paths()
-
 local packer = require("packer")
 local use = packer.use
 local compile = packer.compile
@@ -42,8 +40,10 @@ return packer.startup(function()
     use {'Glench/Vim-Jinja2-Syntax', ft = {'jinja'}, opt = true}
     -- git commit browser
     use {'junegunn/gv.vim', cmd = {'GV'}, opt = true}
+    -- puppet support
+    -- use {'rodjek/vim-puppet', ft = {'puppet'}, opt = true}
     -- support for more languages
-    use {'sheerun/vim-polyglot', opt = true}
+    -- use {'sheerun/vim-polyglot', opt = true}
     -- ack.vim for grep "
     use {'mileszs/ack.vim', cmd = {'Rg'}, opt = true}
     -- todo, notes, fixme viewer
@@ -100,37 +100,17 @@ return packer.startup(function()
     use {'psliwka/vim-smoothie'}
     -- vim.cmd("Plug 'wellle/context.vim', {'on': 'ContextEnable'}")
     use {'nvim-lua/popup.nvim'}
-    -- vim.cmd("Plug 'nvim-lua/plenary.nvim'")
-    -- vim.cmd("Plug 'nvim-lua/telescope.nvim'")
 
-    -- manually load all the heavy plugins
-    -- vim.cmd("packadd completion-nvim")
-    -- vim.cmd("packadd diagnostic-nvim")
-    -- use {'nvim-treesitter/nvim-treesitter', config = 'require("plugins.treesitter")'}
-    -- use {'treesitter-context.nvim'}
-    -- vim.cmd("packadd nvim-lspconfig")
-    -- vim.cmd("packadd plenary.nvim")
-    -- vim.cmd("packadd telescope.nvim")
     use {'nvim-lua/plenary.nvim'}
-    use {'neovim/nvim-lspconfig', as = 'nvim_lsp', config = 'require("plugins.lsp")'}
+    use {'neovim/nvim-lspconfig', config = 'require("plugins.lsp")'}
     use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")'}
-    use {'nvim-lua/diagnostic-nvim', config = 'require("plugins.diagnostics")'}
+    -- use {'nvim-lua/diagnostic-nvim', config = 'require("plugins.diagnostics")'}
     use {'nvim-lua/telescope.nvim', config = 'require("plugins.telescope")'}
 
     use {'webdevel/tabulous', config= 'require("plugins.tabulous")'}
 
-    -- -- vf.plug['end']()
+    use {'simeji/winresizer'}
 
-    -- -- import plugin specific settings
-    -- require('plugins.lsp')
-    -- require('plugins.diagnostics')
-    -- require('plugins.completions')
-    -- require('plugins.fzf')
-    -- require('plugins.telescope')
-    -- require('plugins.treesitter')
-    -- compile()
     vim.g.completed_loading_plugins = true
-    -- vim.cmd("filetype plugin indent on")
-    -- vim.cmd("syntax on")
-    -- compile()
 end)
+-- vim: set ts=4 sw=4 sts=0 noet :
