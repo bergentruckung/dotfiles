@@ -1,1 +1,1 @@
-vim.v.tabulousCloseStr = ''
+-- vim.v.tabulousCloseStr = ''
