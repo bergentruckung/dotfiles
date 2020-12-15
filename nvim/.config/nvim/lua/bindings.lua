@@ -31,7 +31,8 @@ bind('n', '<C-l>', '<C-W>l', 'noremap')
 bind('n', '<C-h>', '<C-w>h', 'noremap')
 
 -- Macros
-bind('n', '<leader>gcc', ':norm @l', 'noremap')
+bind('n', '<leader>l', ':norm @l', 'noremap')
+bind('n', '<leader>am', ':lua Set_modeline()<cr>')
 
 -- Plugins
 ---- vim-plug
@@ -42,10 +43,10 @@ bind('n', '<leader>pc', ':PlugClean<cr>', 'noremap')
 bind('n', '<c-a>', ':call v:lua.Zoom_toggle()<cr>')
 
 --- Telescope.nvim
-bind('n', '<c-p>', ':TelescopeBuffers<cr>', 'noremap', 'silent')
-bind('n', '<c-t>', ':TelescopeFindFile<cr>', 'noremap', 'silent')
-bind('n', '<leader>/', ':TelescopeGrepString<cr>', 'noremap', 'silent')
-bind('n', '<leader>p', ':TelescopeOldFiles<cr>', 'noremap', 'silent')
+bind('n', '<c-p>', ':Telescope buffers<cr>', 'noremap', 'silent')
+bind('n', '<c-t>', ':Telescope find_files<cr>', 'noremap', 'silent')
+bind('n', '<leader>/', ':Telescope grep_string<cr>', 'noremap', 'silent')
+bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
 
 --- FzfFunky
 bind('n', '<leader>f', ':FzfFunky<cr>', 'noremap', 'silent')
@@ -68,6 +69,10 @@ bind('n', 'gr', ':lua vim.lsp.buf.references()<cr>', 'silent')
 bind('n', '<Tab>', '<Plug>(completion_smart_tab)', 'noremap')
 bind('n', '<-stab>', '<Plug>(completion_smart_s_tab)', 'noremap')
 
--- Tabulous
+--- Tabulous
 bind('n', '<leader>t', ':tabnew<cr>', 'noremap')
 bind('n', '<leader>T', ':TabulousRename ', 'noremap')
+
+--- vim-floaterm
+bind('n', '``', ':FloatermToggle<CR>', 'silent')
+bind('t', '``', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
