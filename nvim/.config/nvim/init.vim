@@ -3,6 +3,9 @@ let mapleader="\<Space>"
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" set packpath+=",/codemill/sethuraj/nvim"
 lua require "init"
 autocmd BufWritePost plugins.lua PackerCompile
+" TODO: move to macros.lua
+let @l = '$a	# noqa'
+nnoremap <leader>l :normal @l<cr>
+" vim: set ts=4 sw=4 sts=0 noet :
