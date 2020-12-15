@@ -65,9 +65,10 @@
 --     as an opportunity to further modify the new_config or use it before it is
 --     sent to |vim.lsp.start_client()|.
 
-local nvim_lsp = require'nvim_lsp'
+local lspconfig = require'lspconfig'
 
-nvim_lsp.pyls.setup {
-    on_attach=require'diagnostic'.on_attach, require'completion'.on_attach,
+lspconfig.pyls.setup {
+    -- on_attach=require'diagnostic'.on_attach, require'completion'.on_attach,
+    require'completion'.on_attach,
     filetypes={'python'}
 }
