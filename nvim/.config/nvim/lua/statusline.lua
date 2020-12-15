@@ -33,21 +33,25 @@ function M.Create()
     -- Left group
     -- LG.git_branch
     local git_branch = git_branch()
-    local git_hi = "%#MoreMsg#"
+    if string.len(git_branch) > 0 then
+	git_branch = "%%" .. git_branch
+    end
+    local git_hi = "%#CusorLineNr#"
     -- LG.obsession_status
 
-    statusline = statusline .. git_hi .. git_branch
+    statusline = statusline .. git_hi .. git_branch .. "%#SignColumn#"
     -- Middle group
-    local status_hi = "%#StatusLine#"
+    local status_hi = "%#CusorLineNr#"
     -- LG.filename
     -- LG.is_modified
-    statusline = statusline .. status_hi .. "%=%f %m"
+    -- statusline = statusline .. status_hi .. "%=%f %m"
+    statusline = statusline .. "%=" .. status_hi .. " %f %m" .. "%#SignColumn#"
     -- Right group
     -- RG.readonly
     -- RG.filetype
     -- RG.curr_line
     -- RG.curr_column
-    statusline = statusline .. "%=%r%y [%l: %c] "
+    statusline = statusline .. "%=" .. "%#Sneak#" .. "%y" .. "%#SignColumn#" .. "%#Constant#" .. " [%l: %c]"
     return statusline
 end
 
