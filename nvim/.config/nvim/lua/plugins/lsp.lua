@@ -69,6 +69,6 @@ local lspconfig = require'lspconfig'
 
 lspconfig.pyls.setup {
     -- on_attach=require'diagnostic'.on_attach, require'completion'.on_attach,
-    require'completion'.on_attach,
+    -- require'completion'.on_attach,
     filetypes={'python'}
 }

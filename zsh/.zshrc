@@ -52,6 +52,7 @@ alias hist=History
 alias tasks=task list
 alias jobs="jobs -ld"
 alias vi="nvim -u NONE"
+alias db="nvim -c 'cd ~/databank/' -c VimwikiIndex"
 
 # env variables
 export EDITOR=nvim

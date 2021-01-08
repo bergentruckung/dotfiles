@@ -36,8 +36,8 @@ bind('n', '<leader>am', ':lua Set_modeline()<cr>')
 
 -- Plugins
 ---- vim-plug
-bind('n', '<leader>pi', ':PlugInstall<cr>', 'noremap')
-bind('n', '<leader>pc', ':PlugClean<cr>', 'noremap')
+bind('n', '<leader>pi', ':PackerInstall<cr>', 'noremap')
+bind('n', '<leader>pc', ':PackerClean<cr>', 'noremap')
 
 --- Zoom/restore
 bind('n', '<c-a>', ':call v:lua.Zoom_toggle()<cr>')
@@ -45,7 +45,7 @@ bind('n', '<c-a>', ':call v:lua.Zoom_toggle()<cr>')
 --- Telescope.nvim
 bind('n', '<c-p>', ':Telescope buffers<cr>', 'noremap', 'silent')
 bind('n', '<c-t>', ':Telescope find_files<cr>', 'noremap', 'silent')
-bind('n', '<leader>/', ':Telescope grep_string<cr>', 'noremap', 'silent')
+bind('n', '<leader>/', ':Telescope live_grep<cr>', 'noremap', 'silent')
 bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
 
 --- FzfFunky
@@ -76,3 +76,6 @@ bind('n', '<leader>T', ':TabulousRename ', 'noremap')
 --- vim-floaterm
 bind('n', '``', ':FloatermToggle<CR>', 'silent')
 bind('t', '``', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
+
+--- vim-wiki
+bind('n', '<leader><space>', ':VimwikiToggleListItem<CR>', 'silent')

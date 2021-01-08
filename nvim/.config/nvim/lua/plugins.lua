@@ -1,7 +1,6 @@
 vim.cmd [[packadd packer.nvim]]
 
-local packer = require("packer")
-local use = packer.use
+local packer = require("packer") local use = packer.use
 local compile = packer.compile
 
 return packer.startup(function()
@@ -103,13 +102,15 @@ return packer.startup(function()
 
     use {'nvim-lua/plenary.nvim'}
     use {'neovim/nvim-lspconfig', config = 'require("plugins.lsp")'}
-    use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")'}
+    -- use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")'}
     -- use {'nvim-lua/diagnostic-nvim', config = 'require("plugins.diagnostics")'}
     use {'nvim-lua/telescope.nvim', config = 'require("plugins.telescope")'}
 
     use {'webdevel/tabulous', config= 'require("plugins.tabulous")'}
 
     use {'simeji/winresizer'}
+
+    use {'vimwiki/vimwiki', config= 'require("plugins.vimwiki")'}
 
     vim.g.completed_loading_plugins = true
 end)
