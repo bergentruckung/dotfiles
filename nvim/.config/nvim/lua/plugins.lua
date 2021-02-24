@@ -34,7 +34,7 @@ return packer.startup(function()
     -- Better undo tree
     use {'simnalamburt/vim-mundo', cmd = {'MundoToggle'}, opt = true}
     -- Go tools
-    use {'fatih/vim-go', ft = {'go'}, opt = true}
+    -- use {'fatih/vim-go', ft = {'go'}}
     -- Syntax highlighting for jinja2
     use {'Glench/Vim-Jinja2-Syntax', ft = {'jinja'}, opt = true}
     -- git commit browser
@@ -95,7 +95,7 @@ return packer.startup(function()
     -- vim.cmd("Plug 'nvim-treesitter/nvim-treesitter'")
     -- use {'neovim/nvim-lspconfig', opt = true}
     use {'jpalardy/vim-slime', cmd = {'Slime'}, opt = true}
-    use {'lambdalisue/fern.vim',  cmd = {'Fern'}, opt = true}
+    use {'lambdalisue/fern.vim',  cmd = {'Fern'}, opt = true, config = 'require("plugins.fern")'}
     use {'psliwka/vim-smoothie'}
     -- vim.cmd("Plug 'wellle/context.vim', {'on': 'ContextEnable'}")
     use {'nvim-lua/popup.nvim'}
@@ -111,6 +111,14 @@ return packer.startup(function()
     use {'simeji/winresizer'}
 
     use {'vimwiki/vimwiki', config= 'require("plugins.vimwiki")'}
+
+    use {'rust-lang/rust.vim'}
+
+    use {'cespare/vim-toml'}
+
+    use {'antoinemadec/FixCursorHold.nvim'}
+
+    use {'benbusby/vim-earthbound-themes'}
 
     vim.g.completed_loading_plugins = true
 end)

@@ -49,10 +49,11 @@ bind('n', '<leader>/', ':Telescope live_grep<cr>', 'noremap', 'silent')
 bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
 
 --- FzfFunky
-bind('n', '<leader>f', ':FzfFunky<cr>', 'noremap', 'silent')
+-- bind('n', '<leader>f', ':FzfFunky<cr>', 'noremap', 'silent')
 
 --- Fern
 bind('n', '<leader>`', ':Fern -drawer -reveal=% -toggle %:h<cr>', 'noremap', 'silent')
+bind('n', '<leader>~', ':Fern -drawer -reveal=% -toggle %:h ', 'noremap', 'silent')
 
 --- LSP
 bind('n', 'gl', ':lua vim.lsp.buf.declaration()<cr>', 'silent')
@@ -79,3 +80,6 @@ bind('t', '``', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
 
 --- vim-wiki
 bind('n', '<leader><space>', ':VimwikiToggleListItem<CR>', 'silent')
+
+--- go
+bind('n', '<leader>f', ':!gofmt -w %<cr>', 'silent')

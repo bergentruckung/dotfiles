@@ -1,4 +1,4 @@
-vim.cmd("filetype off")
+-- vim.cmd("filetype off")
 
 vim.o.autoindent = true
 vim.o.background = "dark"
@@ -10,8 +10,7 @@ vim.o.cmdheight = 2
 vim.o.complete = ".,w,b,u,t,i"
 vim.o.completeopt = "menuone,noinsert,noselect"
 vim.o.confirm = true
-vim.o.encoding = "utf-8"
-vim.o.hidden = true
+vim.o.encoding = "utf-8" vim.o.hidden = true
 vim.o.hlsearch = true
 vim.o.ignorecase = true
 vim.o.inccommand = "nosplit"
@@ -22,9 +21,7 @@ vim.o.listchars = "tab:▸ ,eol:¬,trail:•,extends:»,precedes:«,tab:| ,trail
 vim.o.matchtime = 2
 vim.o.modeline = false
 vim.o.mouse = "a"
--- vim.o.packpath = vim.o.packpath .. ",/codemill/sethuraj/nvim/"
 vim.o.pumheight = 15
--- vim.o.rtp = vim.o.rtp .. ",~/.vim/"
 vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.showbreak = "+++ "
 vim.o.showmatch = true
@@ -50,3 +47,5 @@ vim.bo.shiftwidth = 4
 vim.bo.softtabstop = 4
 vim.bo.swapfile = false
 vim.bo.tabstop = 4
+vim.o.history =  100
+vim.o.shada = "!,'30,<50,s50,h"
