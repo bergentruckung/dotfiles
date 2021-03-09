@@ -66,7 +66,7 @@ unset LS_COLORS
 # old prompt
 # export PS1="$STABILITY""[%L:$$]%n@[%F{red}%2m%f]%F{cyan}%15<...<%~%f%% "
 # bergentruckung's prompt
-export PS1="%(!.%F{green}root@%2m%f:%~.%(1j.*.)%B%2m%b:%B%F{cyan}%15<...<%~%f%b) %B%%%b "
+export PS1="%(!.%F{green}root@%2m%f:%~.%(1j.↳.)%B%2m%b:%B%F{cyan}%15<...<%~%f%b)%B❯%b "
 export RPS1="%F{cyan}%B%t%b%f[%F{blue}%B%?%b%f]"
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 export PROMPT_EOL_MARK="%F{yellow}%B%K{black}%S%#%s%k%b%k%f"
@@ -242,7 +242,7 @@ if [[ -f ~/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]]; then
 fi
 
 # sudo prompt
-export SUDO_PROMPT="$(tput setaf 14)$(tput setab 16)> Behind this door must be the elevator to the King's castle. You're filled with determination.
+export SUDO_PROMPT="$(tput setaf 14)> Behind this door must be the elevator to the King's castle. You're filled with determination.
 > [sudo] password for %p: $(tput sgr0)"
 
 if [[ -f ~/.Xdefaults ]]; then xrdb -merge ~/.Xdefaults; fi
