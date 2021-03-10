@@ -15,6 +15,9 @@ bind('c', '<c-j>', '<down>', 'noremap')
 bind('c', '<c-k>', '<up>', 'noremap')
 bind('c', '<c-l>', '<right>', 'noremap')
 
+-- Source lua current lua file
+bind('n', '<F4>', ':luafile %<cr>', 'noremap', 'silent')
+
 -- Location list
 bind('n', '``', ':lopen<cr>', 'noremap')
 
@@ -31,13 +34,13 @@ bind('n', '<C-l>', '<C-W>l', 'noremap')
 bind('n', '<C-h>', '<C-w>h', 'noremap')
 
 -- Macros
-bind('n', '<leader>l', ':norm @l', 'noremap')
+bind('n', '<leader>l', ':norm @l<cr>', 'noremap')
 bind('n', '<leader>am', ':lua Set_modeline()<cr>')
 
 -- Plugins
----- vim-plug
-bind('n', '<leader>pi', ':PackerInstall<cr>', 'noremap')
-bind('n', '<leader>pc', ':PackerClean<cr>', 'noremap')
+---- Packer
+bind('n', '<F1>', ':PackerInstall<cr>', 'noremap', 'silent')
+bind('n', '<F2>', ':PackerClean<cr>', 'noremap', 'silent')
 
 --- Zoom/restore
 bind('n', '<c-a>', ':call v:lua.Zoom_toggle()<cr>')
@@ -47,6 +50,8 @@ bind('n', '<c-p>', ':Telescope buffers<cr>', 'noremap', 'silent')
 bind('n', '<c-t>', ':Telescope find_files<cr>', 'noremap', 'silent')
 bind('n', '<leader>/', ':Telescope live_grep<cr>', 'noremap', 'silent')
 bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
+bind('n', '<F3>', ':lua require("plugins.telescope").search_dotfiles()<cr>', 'noremap', 'silent')
+bind('n', '<F6>', ':Telescope builtin<cr>', 'noremap', 'silent')
 
 --- FzfFunky
 -- bind('n', '<leader>f', ':FzfFunky<cr>', 'noremap', 'silent')
@@ -54,14 +59,6 @@ bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
 --- Fern
 bind('n', '<leader>`', ':Fern -drawer -reveal=% -toggle %:h<cr>', 'noremap', 'silent')
 bind('n', '<leader>~', ':Fern -drawer -reveal=% -toggle %:h ', 'noremap', 'silent')
-
---- LSP
-bind('n', 'gl', ':lua vim.lsp.buf.declaration()<cr>', 'silent')
-bind('n', 'gd', ':lua vim.lsp.buf.definition()<cr>', 'silent')
-bind('n', 'K', ':lua vim.lsp.buf.hover()<cr>', 'silent')
-bind('n', 'gD', ':lua vim.lsp.buf.implementation()<cr>', 'silent')
--- bind('n', '<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
-bind('n', 'gr', ':lua vim.lsp.buf.references()<cr>', 'silent')
 
 --- Completion
 ---- Use <Tab> and <S-Tab> to navigate through popup menu
@@ -75,8 +72,8 @@ bind('n', '<leader>t', ':tabnew<cr>', 'noremap')
 bind('n', '<leader>T', ':TabulousRename ', 'noremap')
 
 --- vim-floaterm
-bind('n', '``', ':FloatermToggle<CR>', 'silent')
-bind('t', '``', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
+bind('n', '<leader>;', ':FloatermToggle<CR>', 'silent')
+bind('t', '<leader>;', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
 
 --- vim-wiki
 bind('n', '<leader><space>', ':VimwikiToggleListItem<CR>', 'silent')

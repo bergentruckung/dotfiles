@@ -7,11 +7,8 @@ return packer.startup(function()
     -- Packer can manage itself as an optional plugin
     use {'wbthomason/packer.nvim', opt = true}
 
-    -- Simple plugins can be specified as strings
-    use {'9mm/vim-closer'}
+    -- use {'9mm/vim-closer'}
 
-    -- Lazy loading:
-    -- Load on specific commands
     use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
     -- git helper
     use {'tpope/vim-fugitive'}
@@ -28,7 +25,7 @@ return packer.startup(function()
     -- nix support
     use {'LnL7/vim-nix', ft = {'nix'}, opt = true}
     -- Session tracker for vim
-    use {'tpope/vim-obsession'}
+    use {'tpope/vim-obsession', opt = true}
     -- Should probably be a builtin plugin
     use {'tpope/vim-surround'}
     -- Better undo tree
@@ -50,11 +47,11 @@ return packer.startup(function()
     -- distraction-free writing in vim
     use {'junegunn/goyo.vim', cmd = {'Goyo'}, opt = true}
     -- fuzzy file/buffer/whatever finder
-    use {'junegunn/fzf', opt = true, config = 'require("plugins.fzf")'}
-    -- fzf for vim
-    use {'junegunn/fzf.vim', opt = true}
-    -- ctrlpfunky for fzf
-    use {'tracyone/fzf-funky', opt = true}
+    -- use {'junegunn/fzf', opt = true, config = 'require("plugins.fzf")'}
+    -- -- fzf for vim
+    -- use {'junegunn/fzf.vim', opt = true}
+    -- -- ctrlpfunky for fzf
+    -- use {'tracyone/fzf-funky', opt = true}
     -- MRU support for fzf
     -- vim.cmd("Plug 'pbogut/fzf-mru.vim'")
     -- Distraction free
@@ -67,33 +64,27 @@ return packer.startup(function()
     use {'junegunn/vim-peekaboo'}
     -- create presentations with vimdeck. Note that you need to install the gem
     -- first
-    use {'tybenz/vimdeck', opt = true}
+    -- use {'tybenz/vimdeck', opt = true}
     use {'godlygeek/tabular', cmd = {'Tabularize'}, opt = true}
-    use {'rlofc/vorg', ft = {'vorg'}, opt = true}
-    use {'kana/vim-textobj-user', opt = true}
+    -- use {'rlofc/vorg', ft = {'vorg'}, opt = true}
+    -- use {'kana/vim-textobj-user', opt = true}
     -- vim.cmd("Plug 'Julian/vim-textobj-brace'")
     -- vim.cmd("Plug 'glts/vim-textobj-comment'")
     -- vim.cmd("Plug 'ap/vim-css-color'")
     use {'moll/vim-bbye'}
     use {'bronson/vim-visual-star-search'}
-    use {'kkoomen/vim-doge', ft = {'go', 'python'}, opt = true}
     -- vim.cmd("Plug 'ap/vim-buftabline'")
     -- use {'tpope/vim-dispatch', opt = true}
-    use {'dstein64/vim-startuptime', cmd = {'Startuptime'}, opt = true}
+    -- use {'dstein64/vim-startuptime', cmd = {'Startuptime'}, opt = true}
     use {'junegunn/vim-slash'}
-    use {'prettier/vim-prettier', cmd = {'Prettier'}, opt = true}
-    use {'ncm2/float-preview.nvim'}
+    -- use {'prettier/vim-prettier', cmd = {'Prettier'}, opt = true}
+    -- use {'ncm2/float-preview.nvim'}
     -- vim.cmd("Plug 'rhysd/git-messenger.vim'")
     use {'sebdah/vim-delve', ft = {'go'}, opt = true}
     -- Plug 'pechorin/any-jump.nvim'
-    use {'thaerkh/vim-indentguides', ft = {'c', 'go', 'lua', 'python'}, opt = true}
-    use {'voldikss/vim-floaterm'}
-    -- vim.cmd("Plug 'direnv/direnv.vim'")
-    -- vim.cmd("Plug 'neovim/nvim-lsp'")
-    -- vim.cmd("Plug 'nvim-lua/completion-nvim'")
-    -- vim.cmd("Plug 'nvim-lua/diagnostic-nvim'")
+    use {'thaerkh/vim-indentguides', ft = {'c', 'go', 'lua', 'python'}}
+    use {'voldikss/vim-floaterm', opt = true, cmd = {'FloatermToggle'}}
     -- vim.cmd("Plug 'nvim-treesitter/nvim-treesitter'")
-    -- use {'neovim/nvim-lspconfig', opt = true}
     use {'jpalardy/vim-slime', cmd = {'Slime'}, opt = true}
     use {'lambdalisue/fern.vim',  cmd = {'Fern'}, opt = true, config = 'require("plugins.fern")'}
     use {'psliwka/vim-smoothie'}
@@ -102,23 +93,22 @@ return packer.startup(function()
 
     use {'nvim-lua/plenary.nvim'}
     use {'neovim/nvim-lspconfig', config = 'require("plugins.lsp")'}
-    -- use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")'}
-    -- use {'nvim-lua/diagnostic-nvim', config = 'require("plugins.diagnostics")'}
+    use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")'}
     use {'nvim-lua/telescope.nvim', config = 'require("plugins.telescope")'}
 
     use {'webdevel/tabulous', config= 'require("plugins.tabulous")'}
 
     use {'simeji/winresizer'}
 
-    use {'vimwiki/vimwiki', config= 'require("plugins.vimwiki")'}
+    use {'vimwiki/vimwiki', config= 'require("plugins.vimwiki")', opt = true}
 
-    use {'rust-lang/rust.vim'}
+    use {'rust-lang/rust.vim', ft = {'rust'}, opt = true}
 
-    use {'cespare/vim-toml'}
+    use {'cespare/vim-toml', ft = {'toml'}, opt = true}
 
     use {'antoinemadec/FixCursorHold.nvim'}
 
-    use {'benbusby/vim-earthbound-themes'}
+    use {'nvim-telescope/telescope-fzy-native.nvim'}
 
     vim.g.completed_loading_plugins = true
 end)

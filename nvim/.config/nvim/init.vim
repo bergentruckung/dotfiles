@@ -18,6 +18,8 @@ silent nnoremap <leader>2 :make build<cr>
 silent nnoremap <leader>3 :copen<cr>
 silent nnoremap <leader>4 :cclose<cr>
 silent nnoremap <leader>5 :RustFmt<cr>
+
+let g:floaterm_title = " Von "
 " in millisecond, used for both CursorHold and CursorHoldI,
 " use updatetime instead if not defined
 let g:cursorhold_updatetime = 100

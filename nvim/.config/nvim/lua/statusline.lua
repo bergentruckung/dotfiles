@@ -8,8 +8,10 @@ function get_mode()
 end
 
 function init_mode_table()
-    MODE_TABLE["n"] = "NORMAL"
     MODE_TABLE["i"] = "INSERT"
+    MODE_TABLE["n"] = "NORMAL"
+    MODE_TABLE["r"] = "REPLACE"
+    MODE_TABLE["v"] = "VISUAL"
 end
 
 function git_branch()
@@ -21,7 +23,6 @@ function git_branch()
     return " " .. git_br .. " "
 end
 
--- init_mode_table()
 
 -- api.nvim_command('hi Obsession guifg='..obsession_fg..' gui='..obsession_gui)
 
@@ -31,6 +32,7 @@ function M.Create()
     end
     local statusline = ""
     -- Left group
+    -- LG.mode
     -- LG.git_branch
     local git_branch = git_branch()
     if string.len(git_branch) > 0 then
