@@ -56,8 +56,8 @@ if !has('gui_running') && &t_Co < 256
     hi! SpellLocal ctermbg=23 ctermfg=252 gui=undercurl guisp=#89b8c2
     hi! SpellRare ctermbg=97 ctermfg=252 gui=undercurl guisp=#a093c7
     hi! Statement ctermfg=110 gui=NONE guifg=#84a0c6
-    " hi! StatusLine ctermbg=234 ctermfg=245 gui=reverse guibg=#17171b guifg=#818596 term=reverse
-    hi! StatusLine ctermfg=150 guifg=#b4be82 term=reverse
+    hi! StatusLine ctermbg=234 ctermfg=245 gui=reverse guibg=#17171b guifg=#818596 term=reverse
+    " hi! StatusLine ctermfg=150 guifg=#b4be82 term=reverse
     hi! StatusLineTerm cterm=reverse ctermbg=234 ctermfg=245 gui=reverse guibg=#17171b guifg=#818596 term=reverse
     hi! StatusLineNC cterm=reverse ctermbg=238 ctermfg=233 gui=reverse guibg=#3e445e guifg=#0f1117
     hi! StatusLineTermNC cterm=reverse ctermbg=238 ctermfg=233 gui=reverse guibg=#3e445e guifg=#0f1117

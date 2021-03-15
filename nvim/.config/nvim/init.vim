@@ -19,6 +19,20 @@ silent nnoremap <leader>3 :copen<cr>
 silent nnoremap <leader>4 :cclose<cr>
 silent nnoremap <leader>5 :RustFmt<cr>
 
+function! StatuslineActive()
+    return luaeval('require("statusline").Active()')
+endfunction
+
+function! StatuslineInactive()
+    return luaeval('require("statusline").Inactive()')
+endfunction
+
+augroup Statusline
+  autocmd!
+  autocmd WinEnter,BufEnter * setlocal statusline=%!StatuslineActive()
+  autocmd WinLeave,BufLeave * setlocal statusline=%!StatuslineInactive()
+augroup END
+
 let g:floaterm_title = " Von "
 " in millisecond, used for both CursorHold and CursorHoldI,
 " use updatetime instead if not defined
