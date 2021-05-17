@@ -1,6 +1,7 @@
 -- bergentruckung's statusline
 local api = vim.api
 local M = {}
+local devicons = require'nvim-web-devicons'
 -- local MODE_TABLE = {}
 
 local current_mode = setmetatable({
@@ -34,7 +35,14 @@ local current_mode = setmetatable({
 )
 
 function get_mode()
-    return " [" .. current_mode[api.nvim_get_mode()["mode"]] .. "]"
+    return "[" .. current_mode[api.nvim_get_mode()["mode"]] .. "]"
+end
+
+
+function get_ft_icon()
+    local ft = vim.fn.expand('%:e')
+    local icon = devicons.get_icon("", ft, options)
+    return icon
 end
 
 
@@ -72,7 +80,7 @@ function git_branch()
     if string.len(git_br) == 0 then
         return ""
     end
-    return " " .. git_br .. " "
+    return " " .. git_br
 end
 
 -- init_mode_table()
@@ -86,7 +94,7 @@ function M.Active()
     -- Left group
     -- LG.mode
     -- uncomment this if you want mode in statusline
-    statusline = "%#StatusLineLeftGroup#" .. get_mode() .. " "
+    statusline = "%#StatusLineViMode#" .. get_mode()
     -- LG.git_branch
     local git_branch = git_branch()
     if string.len(git_branch) > 0 then
@@ -95,19 +103,19 @@ function M.Active()
     local git_hi = "%#StatusLineGit#"
     -- LG.obsession_status
 
-    statusline = statusline .. git_hi .. git_branch .. "%#SignColumn#"
+    statusline = statusline .. git_hi .. git_branch .. " " .. "%#StatusLineEmpty#"
     -- Middle group
-    local status_hi = "%#StatusLineMiddleGroup#"
+    local status_hi = "%#StatusLineFilename#"
     -- LG.filename
     -- LG.is_modified
     -- statusline = statusline .. status_hi .. "%=%f %m"
-    statusline = statusline .. "%=" .. status_hi .. " %f %m" .. "%#SignColumn#"
+    statusline = statusline .. "%=" .. status_hi .. "%f" .. status_hi .. " %m" .. "%#StatusLineEmpty#"
     -- Right group
     -- RG.readonly
     -- RG.filetype
     -- RG.curr_line
     -- RG.curr_column
-    statusline = statusline .. "%=" .. "%#Constant#" .. "%y" .. "%#SignColumn#" .. "%#Constant#" .. " [%l: %c]"
+    statusline = statusline .. "%=" .. "%#StatusLineFileType#" .. "%y" .. "%#StatusLineEmpty#" .. "%#StatusLineCount#" .. "[%l: %c]"
     return statusline
 end
 

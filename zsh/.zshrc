@@ -54,6 +54,11 @@ alias jobs="jobs -ld"
 alias vi="nvim -u NONE"
 alias db="nvim -c 'cd ~/databank/' -c VimwikiIndex"
 
+# git specific aliases
+alias gs="git status"
+alias gb="git branch -a"
+alias gp="git pull"
+
 # env variables
 export EDITOR=nvim
 
@@ -222,7 +227,7 @@ if [[ -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]]; then
     ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=blue
     ZSH_HIGHLIGHT_STYLES[command-substitution]=fg=blue
     ZSH_HIGHLIGHT_STYLES[command]=fg=blue,bold
-    ZSH_HIGHLIGHT_STYLES[comment]=fg=white,bold
+    ZSH_HIGHLIGHT_STYLES[comment]=fg=magenta
     ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=default
     ZSH_HIGHLIGHT_STYLES[function]=fg=blue,bold
     ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
@@ -234,15 +239,13 @@ if [[ -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]]; then
 fi
 
 # zsh-autosuggestions
-if [[ -f ~/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]]; then
-    test -e ~/zsh-autosuggestions/zsh-autosuggestions.zsh && source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
-    ZSH_AUTOSUGGEST_USE_ASYNC=1
-    bindkey -M viins "^j" autosuggest-execute
-    bindkey -M viins "^k" autosuggest-accept
-fi
+# if [[ -f ~/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh ]]; then
+#     test -e ~/zsh-autosuggestions/zsh-autosuggestions.zsh && source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
+#     ZSH_AUTOSUGGEST_USE_ASYNC=1
+#     bindkey -M viins "^j" autosuggest-execute
+#     bindkey -M viins "^k" autosuggest-accept
+# fi
 
 # sudo prompt
 export SUDO_PROMPT="$(tput setaf 14)> Behind this door must be the elevator to the King's castle. You're filled with determination.
 > [sudo] password for %p: $(tput sgr0)"
-
-if [[ -f ~/.Xdefaults ]]; then xrdb -merge ~/.Xdefaults; fi

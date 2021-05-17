@@ -15,7 +15,7 @@ return packer.startup(function()
     -- handy bracket mappings
     use {'tpope/vim-unimpaired'}
     -- APIs for vimscript
-    use {'ascenator/L9', as = 'newL9'}
+    -- use {'ascenator/L9', as = 'newL9'}
     -- auto-pairs - autoclose brackets and stuff
     use {'jiangmiao/auto-pairs'}
     -- Commentary
@@ -85,22 +85,24 @@ return packer.startup(function()
     use {'thaerkh/vim-indentguides', ft = {'c', 'go', 'lua', 'python'}}
     use {'voldikss/vim-floaterm', opt = true, cmd = {'FloatermToggle'}}
     -- vim.cmd("Plug 'nvim-treesitter/nvim-treesitter'")
-    use {'jpalardy/vim-slime', cmd = {'Slime'}, opt = true}
+    -- use {'jpalardy/vim-slime', cmd = {'Slime'}, opt = true}
     use {'lambdalisue/fern.vim',  cmd = {'Fern'}, opt = true, config = 'require("plugins.fern")'}
     use {'psliwka/vim-smoothie'}
     -- vim.cmd("Plug 'wellle/context.vim', {'on': 'ContextEnable'}")
     use {'nvim-lua/popup.nvim'}
-
     use {'nvim-lua/plenary.nvim'}
     use {'neovim/nvim-lspconfig', config = 'require("plugins.lsp")'}
     use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")'}
+
+    use {'nvim-telescope/telescope-fzy-native.nvim'}
+    use {'nvim-telescope/telescope-fzf-writer.nvim'}
     use {'nvim-lua/telescope.nvim', config = 'require("plugins.telescope")'}
 
-    use {'webdevel/tabulous', config= 'require("plugins.tabulous")'}
+    use {'webdevel/tabulous', config = 'require("plugins.tabulous")'}
 
-    use {'simeji/winresizer'}
+    use {'simeji/winresizer', config = 'require("plugins.winresizer")'}
 
-    use {'vimwiki/vimwiki', config= 'require("plugins.vimwiki")', opt = true}
+    use {'vimwiki/vimwiki', config = 'require("plugins.vimwiki")', opt = true}
 
     use {'rust-lang/rust.vim', ft = {'rust'}, opt = true}
 
@@ -108,7 +110,11 @@ return packer.startup(function()
 
     use {'antoinemadec/FixCursorHold.nvim'}
 
-    use {'nvim-telescope/telescope-fzy-native.nvim'}
+    -- use {'marcushwz/nvim-workbench', opt = true, cmd = {'<Plug>ToggleProjectWorkbench'}}
+
+    use {'sindrets/diffview.nvim', config = 'require("plugins.diffview")', opt = true, cmd = {'DiffviewOpen'}}
+
+    use {'kyazdani42/nvim-web-devicons', config = 'require("plugins.devicons")'}
 
     vim.g.completed_loading_plugins = true
 end)

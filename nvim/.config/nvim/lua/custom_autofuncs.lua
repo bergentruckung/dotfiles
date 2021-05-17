@@ -1,5 +1,12 @@
 vim.cmd("autocmd Filetype python setlocal omnifunc=v:lua.vim.lsp.omnifunc")
+vim.cmd("autocmd Filetype rust setlocal omnifunc=v:lua.vim.lsp.omnifunc")
+vim.cmd("autocmd Filetype go setlocal omnifunc=v:lua.vim.lsp.omnifunc")
+vim.cmd("autocmd BufWritePost *.Xresources echo 'Please run: xrdb -merge ~/.Xdefaults for changes to take effect'")
+
 -- vim.cmd("autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)")
 vim.cmd("autocmd BufEnter */tmp/odin_model_* set filetype=yaml")
 vim.cmd("autocmd BufEnter *.pp set filetype=puppet")
 vim.cmd("autocmd BufEnter *.pda set shiftwidth=4")
+vim.cmd("autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 1000)")
+vim.cmd("autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)")
+vim.cmd("autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)")

@@ -12,8 +12,8 @@ require("autofuncs")
 -- Custom autofuncs
 require("custom_autofuncs")
 
--- UI-related styles
-require("styles")
-
 -- Nvim options
 require("options")
+
+-- UI-related styles
+require("styles")

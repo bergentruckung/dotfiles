@@ -43,15 +43,16 @@ bind('n', '<F1>', ':PackerInstall<cr>', 'noremap', 'silent')
 bind('n', '<F2>', ':PackerClean<cr>', 'noremap', 'silent')
 
 --- Zoom/restore
-bind('n', '<c-a>', ':call v:lua.Zoom_toggle()<cr>')
+bind('n', '<c-a>', ':call v:lua.Zoom_toggle()<cr>', 'silent')
 
 --- Telescope.nvim
 bind('n', '<c-p>', ':Telescope buffers<cr>', 'noremap', 'silent')
 bind('n', '<c-t>', ':Telescope find_files<cr>', 'noremap', 'silent')
 bind('n', '<leader>/', ':Telescope live_grep<cr>', 'noremap', 'silent')
 bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
-bind('n', '<F3>', ':lua require("plugins.telescope").search_dotfiles()<cr>', 'noremap', 'silent')
-bind('n', '<F6>', ':Telescope builtin<cr>', 'noremap', 'silent')
+bind('n', '<F3>', ':lua require("plugins.telescope").find_nvim_dotfiles()<cr>', 'noremap', 'silent')
+bind('n', '<F8>', ':lua require("plugins.telescope").find_dotfiles()<cr>', 'noremap', 'silent')
+bind('n', '<leader><leader>', ':Telescope builtin<cr>', 'noremap', 'silent')
 
 --- FzfFunky
 -- bind('n', '<leader>f', ':FzfFunky<cr>', 'noremap', 'silent')
@@ -76,7 +77,17 @@ bind('n', '<leader>;', ':FloatermToggle<CR>', 'silent')
 bind('t', '<leader>;', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
 
 --- vim-wiki
-bind('n', '<leader><space>', ':VimwikiToggleListItem<CR>', 'silent')
+-- bind('n', '<leader><space>', ':VimwikiToggleListItem<CR>', 'silent')
 
---- go
-bind('n', '<leader>f', ':!gofmt -w %<cr>', 'silent')
+--- nvim-workbench
+-- bind('n', '<leader>\'', '<Plug>ToggleProjectWorkbench', 'silent')
+-- -- " <Plug>WorkbenchAddCheckbox allows you to easily turned a list in markdown to a checkbox
+-- -- " - testing -> - [ ] testing
+-- -- " * testing -> * [ ] testing
+-- -- " testing -> [ ] testing	# noqa
+-- bind('n', '<leader>a', '<Plug>WorkbenchAddCheckbox', 'silent')
+
+-- -- " <Plug>WorkbenchToggleCheckbox allows you to toggle the checkbox
+-- -- " - [ ] testing -> - [x] testing
+-- -- " - [x] testing -> - [ ] testing
+-- bind('n', '<leader><cr>', '<Plug>WorkbenchToggleCheckbox', 'silent')
