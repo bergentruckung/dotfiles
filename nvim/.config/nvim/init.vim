@@ -4,10 +4,12 @@ nnoremap <c-/> <c-i>
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-set packpath+=,~/.local/nvim/share/pack/
+
+set runtimepath=~/.config/nvim/,~/.local/share/nvim/site,$VIMRUNTIME
+set packpath=~/.local/share/nvim/site
 
 lua require "init"
-autocmd BufWritePost plugins.lua PackerCompile
+autocmd BufWritePost *plugins.lua PackerCompile
 " TODO: move to macros.lua
 let @l = '$a	# noqa'
 nnoremap <leader>l :normal @l<cr>
@@ -39,4 +41,8 @@ let g:floaterm_title = " Von "
 let g:cursorhold_updatetime = 100
 " TODO: move this to abbreviations
 iabbrev ispew "github.com/davecgh/go-spew/spew"
+
+" FIXME: figure out why global variables are not getting set from inside lua
+let g:winresizer_start_key = "<F7>"
+
 " vim: set ts=4 sw=4 sts=0 noet :
