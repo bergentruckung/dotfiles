@@ -50,16 +50,16 @@ bind('n', '<c-p>', ':Telescope buffers<cr>', 'noremap', 'silent')
 bind('n', '<c-t>', ':Telescope find_files<cr>', 'noremap', 'silent')
 bind('n', '<leader>/', ':Telescope live_grep<cr>', 'noremap', 'silent')
 bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
-bind('n', '<F3>', ':lua require("plugins.telescope").find_nvim_dotfiles()<cr>', 'noremap', 'silent')
-bind('n', '<F8>', ':lua require("plugins.telescope").find_dotfiles()<cr>', 'noremap', 'silent')
+bind('n', '<F3>', ':lua require("plugins.telescope_config").find_nvim_dotfiles()<cr>', 'noremap', 'silent')
+bind('n', '<F8>', ':lua require("plugins.telescope_config").find_dotfiles()<cr>', 'noremap', 'silent')
 bind('n', '<leader><leader>', ':Telescope builtin<cr>', 'noremap', 'silent')
 
 --- FzfFunky
 -- bind('n', '<leader>f', ':FzfFunky<cr>', 'noremap', 'silent')
 
 --- Fern
-bind('n', '<leader>`', ':Fern -drawer -reveal=% -toggle %:h<cr>', 'noremap', 'silent')
-bind('n', '<leader>~', ':Fern -drawer -reveal=% -toggle %:h ', 'noremap', 'silent')
+-- bind('n', '<leader>`', ':Fern -drawer -reveal=% -toggle %:h<cr>', 'noremap', 'silent')
+-- bind('n', '<leader>~', ':Fern -drawer -reveal=% -toggle %:h ', 'noremap', 'silent')
 
 --- Completion
 ---- Use <Tab> and <S-Tab> to navigate through popup menu
@@ -91,3 +91,5 @@ bind('t', '<leader>;', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
 -- -- " - [ ] testing -> - [x] testing
 -- -- " - [x] testing -> - [ ] testing
 -- bind('n', '<leader><cr>', '<Plug>WorkbenchToggleCheckbox', 'silent')
+--- nvim-tree
+bind('n', '<leader>`', ':NvimTreeToggle<cr>', 'noremap', 'silent')

@@ -5,11 +5,13 @@ nnoremap <c-/> <c-i>
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-set runtimepath=~/.config/nvim/,~/.local/share/nvim/site,$VIMRUNTIME
-set packpath=~/.local/share/nvim/site
+set runtimepath=~/.dotfiles/nvim/.config/nvim/,$VIMRUNTIME
+set packpath=~/.local/share/nvim/site/
+" set runtimepath=~/.dotfiles/nvim/.config/nvim/,~/.local/share/nvim/site/pack/packer/start/,$VIMRUNTIME,~/.local/share/nvim/site/pack/packer/opt/
+" set packpath=~/.local/share/nvim/site/
 
 lua require "init"
-autocmd BufWritePost *plugins.lua PackerCompile
+autocmd BufWritePost *plugins.lua PackerCompile profile=true
 " TODO: move to macros.lua
 let @l = '$a	# noqa'
 nnoremap <leader>l :normal @l<cr>
@@ -21,19 +23,19 @@ silent nnoremap <leader>3 :copen<cr>
 silent nnoremap <leader>4 :cclose<cr>
 silent nnoremap <leader>5 :RustFmt<cr>
 
-function! StatuslineActive()
-    return luaeval('require("statusline").Active()')
-endfunction
+" function! StatuslineActive()
+"     return luaeval('require("statusline").Active()')
+" endfunction
 
-function! StatuslineInactive()
-    return luaeval('require("statusline").Inactive()')
-endfunction
+" function! StatuslineInactive()
+"     return luaeval('require("statusline").Inactive()')
+" endfunction
 
-augroup Statusline
-  autocmd!
-  autocmd WinEnter,BufEnter * setlocal statusline=%!StatuslineActive()
-  autocmd WinLeave,BufLeave * setlocal statusline=%!StatuslineInactive()
-augroup END
+" augroup Statusline
+"   autocmd!
+"   autocmd WinEnter,BufEnter * setlocal statusline=%!StatuslineActive()
+"   autocmd WinLeave,BufLeave * setlocal statusline=%!StatuslineInactive()
+" augroup END
 
 let g:floaterm_title = " Von "
 " in millisecond, used for both CursorHold and CursorHoldI,

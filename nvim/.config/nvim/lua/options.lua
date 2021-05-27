@@ -1,5 +1,3 @@
--- vim.cmd("filetype off")
-
 vim.o.autoindent = true
 vim.o.background = "dark"
 vim.o.backspace = "indent,eol,start"
@@ -40,7 +38,7 @@ vim.o.wildmenu = true
 vim.o.wildmode = "longest,list,full"
 vim.o.wrapscan = true
 vim.o.writebackup = false
-vim.wo.cursorline = false
+vim.wo.cursorline = true
 vim.wo.list = true
 vim.wo.number = true
 vim.wo.numberwidth = 5

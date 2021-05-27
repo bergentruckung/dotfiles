@@ -1,15 +1,21 @@
-vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[packadd packer.nvim]]
 
-local packer = require("packer") local use = packer.use
-local compile = packer.compile
+local packer = require("packer")
+local use = packer.use
+-- local compile = packer.compile
 
-return packer.startup(function()
-    -- Packer can manage itself as an optional plugin
-    use {'wbthomason/packer.nvim', opt = true}
+return packer.startup(function() -- Packer can manage itself as an optional plugin
+    use {'wbthomason/packer.nvim'}
+
+    use {
+	  'nvim-telescope/telescope.nvim',
+	  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+	  config = 'require("plugins.telescope_config")'
+	}
 
     -- use {'9mm/vim-closer'}
 
-    use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
+    use {'tpope/vim-dispatch', opt = rue, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
     -- git helper
     use {'tpope/vim-fugitive'}
     -- handy bracket mappings
@@ -25,7 +31,7 @@ return packer.startup(function()
     -- nix support
     use {'LnL7/vim-nix', ft = {'nix'}, opt = true}
     -- Session tracker for vim
-    use {'tpope/vim-obsession', opt = true}
+    use {'tpope/vim-obsession', opt = true, cmd = {'Obsession'}}
     -- Should probably be a builtin plugin
     use {'tpope/vim-surround'}
     -- Better undo tree
@@ -43,7 +49,7 @@ return packer.startup(function()
     -- ack.vim for grep "
     use {'mileszs/ack.vim', cmd = {'Rg'}, opt = true}
     -- todo, notes, fixme viewer
-    use {'vim-scripts/todo-vim', opt = true}
+    use {'vim-scripts/todo-vim', opt = true, cmd = {'TodoToggle'}}
     -- distraction-free writing in vim
     use {'junegunn/goyo.vim', cmd = {'Goyo'}, opt = true}
     -- fuzzy file/buffer/whatever finder
@@ -82,25 +88,19 @@ return packer.startup(function()
     -- vim.cmd("Plug 'rhysd/git-messenger.vim'")
     use {'sebdah/vim-delve', ft = {'go'}, opt = true}
     -- Plug 'pechorin/any-jump.nvim'
-    use {'thaerkh/vim-indentguides', ft = {'c', 'go', 'lua', 'python'}}
+    -- use {'thaerkh/vim-indentguides', ft = {'c', 'go', 'lua', 'python'}}
     use {'voldikss/vim-floaterm', opt = true, cmd = {'FloatermToggle'}}
     -- vim.cmd("Plug 'nvim-treesitter/nvim-treesitter'")
     -- use {'jpalardy/vim-slime', cmd = {'Slime'}, opt = true}
-    use {'lambdalisue/fern.vim',  cmd = {'Fern'}, opt = true, config = 'require("plugins.fern")'}
+    -- use {'lambdalisue/fern.vim',  cmd = {'Fern'}, opt = true, config = 'require("plugins.fern")'}
     use {'psliwka/vim-smoothie'}
     -- vim.cmd("Plug 'wellle/context.vim', {'on': 'ContextEnable'}")
-    use {'nvim-lua/popup.nvim'}
-    use {'nvim-lua/plenary.nvim'}
-    use {'neovim/nvim-lspconfig', config = 'require("plugins.lsp")'}
-    use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")'}
+    use {'neovim/nvim-lspconfig', config = 'require("plugins.lsp")', ft = {'go', 'python', 'rust'}}
+    use {'nvim-lua/completion-nvim', config = 'require("plugins.completions")', ft = {'go', 'python', 'rust'}, opt = true }
 
-    use {'nvim-telescope/telescope-fzy-native.nvim'}
-    use {'nvim-telescope/telescope-fzf-writer.nvim'}
-    use {'nvim-lua/telescope.nvim', config = 'require("plugins.telescope")'}
+    use {'webdevel/tabulous', config = 'require("plugins.tabulous")', cmd = {'TabulousRename'}, opt = true}
 
-    use {'webdevel/tabulous', config = 'require("plugins.tabulous")'}
-
-    use {'simeji/winresizer', config = 'require("plugins.winresizer")'}
+    use {'simeji/winresizer', config = 'require("plugins.winresizer")', cmd = {'WinResizerStartResize'}, opt = true}
 
     use {'vimwiki/vimwiki', config = 'require("plugins.vimwiki")', opt = true}
 
@@ -108,7 +108,7 @@ return packer.startup(function()
 
     use {'cespare/vim-toml', ft = {'toml'}, opt = true}
 
-    use {'antoinemadec/FixCursorHold.nvim'}
+    -- use {'antoinemadec/FixCursorHold.nvim'}
 
     -- use {'marcushwz/nvim-workbench', opt = true, cmd = {'<Plug>ToggleProjectWorkbench'}}
 
@@ -116,6 +116,14 @@ return packer.startup(function()
 
     use {'kyazdani42/nvim-web-devicons', config = 'require("plugins.devicons")'}
 
-    vim.g.completed_loading_plugins = true
+    use {'lukas-reineke/indent-blankline.nvim', branch = 'lua', opt = true, ft = {'go', 'python', 'rust'}}
+
+    use {'kyazdani42/nvim-tree.lua', opt = true, cmd = {'NvimTreeToggle'}}
+
+    use {
+	  'glepnir/galaxyline.nvim',
+	    branch = 'main',
+        }
+
 end)
 -- vim: set ts=4 sw=4 sts=0 noet :

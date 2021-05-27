@@ -3,6 +3,9 @@ vim.g.completed_loading_plugins = false
 
 require("plugins")
 
+-- statusline
+require("plugins.my_statusline")
+
 -- Keybindings
 require("bindings")
 

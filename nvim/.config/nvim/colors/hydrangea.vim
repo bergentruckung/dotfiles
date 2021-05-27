@@ -117,5 +117,6 @@ hi! DiffDelete guifg=darkred guibg=black
 hi! DiffAdd guifg=green guibg=black
 
 " hi! StatusLine ctermbg=234 ctermfg=245 gui=reverse guibg=#17171b guifg=#818596 term=reverse
-highlight clear StatusLine
-hi! StatusLine guibg=#111111
+" Uncomment these if you want to use bergentruckung's statusline
+" highlight clear StatusLine
+" hi! StatusLine guibg=#111111

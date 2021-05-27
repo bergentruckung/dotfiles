@@ -1,13 +1,16 @@
 local actions = require('telescope.actions')
-local action_state = require('telescope.actions.state')
-local action_mt = require('telescope.actions.mt')
-local sorters = require('telescope.sorters')
-local themes = require('telescope.themes')
+-- local action_state = require('telescope.actions.state')
+-- local action_mt = require('telescope.actions.mt')
+-- local sorters = require('telescope.sorters')
+-- local themes = require('telescope.themes')
 
 require('telescope').setup {
     defaults = {
 	winblend = 0,
 	preview_cutoff = 120,
+	results_height = 1,
+        results_width = 0.8,
+	border = {},
 
 	layout_strategy = 'horizontal',
 	layout_defaults = {
@@ -15,14 +18,23 @@ require('telescope').setup {
 			width_padding = 0.1,
 			height_padding = 0.1,
 			preview_width = 0.6,
+			mirror = false,
 		},
 		vertical = {
 			width_padding = 0.05,
 			height_padding = 1,
 			preview_height = 0.5,
+			mirror = false,
 		}
 	},
-
+	borderchars = {
+	      { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+	      prompt = {"─", "│", " ", "│", '┌', '┐', "│", "│"},
+	      results = {"─", "│", "─", "│", "├", "┤", "┘", "└"},
+	      preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+	},
+        width = 0.8,
+	shorten_path = true,
 	selection_strategy = "reset",
 	prompt_position = "top",
 	sorting_strategy = "descending",
@@ -36,31 +48,32 @@ require('telescope').setup {
 	    '--column',
 	    '--smart-case'
         },
-        file_sorter = sorters.get_fzy_sorter,
+        -- file_sorter = sorters.get_fuzzy_file,
         mappings = {
             i = {
                 ["<Down>"] = false,
                 ["<Up>"] = false,
                 ["<c-j>"] = actions.move_selection_next,
                 ["<c-k>"] = actions.move_selection_previous,
+		["<esc>"] = actions.close,
             },
         },
 	color_devicons = true,
 	prompt_prefix = "❯ ",
 	selection_caret = "❯ ",
     },
-    extensions = {
-        fzy_native = {
-            override_generic_sorter = true,
-            override_file_sorter = true,
-        },
-        fzf_writer = {
-            minimum_grep_characters = 6,
-            use_highlighter = false,
-        }
-    }
+    -- extensions = {
+    --     fzy_native = {
+    --         override_generic_sorter = true,
+    --         override_file_sorter = true,
+    --     },
+    --     fzf_writer = {
+    --         minimum_grep_characters = 6,
+    --         use_highlighter = false,
+    --     }
+    -- }
 }
-require('telescope').load_extension('fzy_native')
+-- require('telescope').load_extension('fzy_native')
 
 local M = {}
 M.find_nvim_dotfiles = function()
