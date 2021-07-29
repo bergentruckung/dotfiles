@@ -1,3 +1,3 @@
---theme="base16"
+--theme="Dracula"
 --style="numbers,changes,header"
 --map-syntax .ignore:.gitignore

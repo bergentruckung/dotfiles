@@ -2,6 +2,8 @@ if [[ -f ~/.zshrc.local ]]; then
     source ~/.zshrc.local
 fi
 
+setxkbmap -option "ctrl:nocaps"
+
 # History
 export HISTSIZE=100000000000
 export SAVEHIST=100000000000
@@ -29,6 +31,28 @@ bindkey -M vicmd "j" down-line-or-beginning-search
 bindkey -M vicmd "^R" history-incremental-search-backward
 bindkey -M vicmd "\e" accept-search
 bindkey -M viins "^R" history-incremental-search-backward
+# bindkey -M viins "^i" clear-screen
+# ctrl-j newline
+# bindkey '^n' accept-line
+# bindkey -a '^n' accept-line
+
+# # another rotation to match qwerty
+# bindkey -a 'n' down-line-or-history
+# bindkey -a 'e' up-line-or-history
+# bindkey -a 'i' vi-forward-char
+
+# # make qwerty
+# bindkey -a 'k' vi-repeat-search
+# bindkey -a 'K' vi-rev-repeat-search
+# bindkey -a 'u' vi-insert
+# bindkey -a 'U' vi-insert-bol
+# bindkey -a 'l' vi-undo-change
+# bindkey -a 'N' vi-join
+
+# # spare
+# bindkey -a 'j' vi-forward-word-end
+# bindkey -a 'J' vi-forward-blank-word-end
+
 
 # zsh options
 setopt alwaystoend append_history auto_list auto_menu autocd autopushd chaselinks checkjobs extendedglob extended_history globdots hist_fcntl_lock hist_ignore_all_dups hist_reduce_blanks hist_save_no_dups hist_verify interactivecomments listpacked longlistjobs multios promptsubst pushdignoredups pushdsilent share_history transient_rprompt 
@@ -53,6 +77,11 @@ alias tasks=task list
 alias jobs="jobs -ld"
 alias vi="nvim -u NONE"
 alias db="nvim -c 'cd ~/databank/' -c VimwikiIndex"
+alias l="exa -F -g -m -i -ls=modified"
+alias lg="l --git"
+alias g="rg "
+# alias less="TERM=xterm less"
+# alias bat="TERM=xterm bat"
 
 # git specific aliases
 alias gs="git status"
@@ -61,6 +90,7 @@ alias gp="git pull"
 
 # env variables
 export EDITOR=nvim
+export EXA_COLORS="uu=0:gu=0:sn=0:uu=0:un=0:gu=0:gn=0:lc=0:lm=0:da=0:in=0:bl=0"
 
 # Autoloads
 autoload -U colors && colors
@@ -68,9 +98,11 @@ autoload -U compinit && compinit
 autoload -U bashcompinit && bashcompinit
 
 unset LS_COLORS
+export LS_COLORS="$(vivid generate molokai)"
 # old prompt
 # export PS1="$STABILITY""[%L:$$]%n@[%F{red}%2m%f]%F{cyan}%15<...<%~%f%% "
 # bergentruckung's prompt
+# export PS1="%(!.%F{green}root@%2m%f:%~.%(1j.↳.)%B%2m%b:%B%F{cyan}%15<...<%~%f%b)%B❯%b "
 export PS1="%(!.%F{green}root@%2m%f:%~.%(1j.↳.)%B%2m%b:%B%F{cyan}%15<...<%~%f%b)%B❯%b "
 export RPS1="%F{cyan}%B%t%b%f[%F{blue}%B%?%b%f]"
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
@@ -88,14 +120,37 @@ TRAPINT() {
 
 _comp_options+=(globdots)
 
+# vcs_info
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' branchformat '%b%F{1}:%F{3}%r'
+zstyle ':vcs_info:git*' formats '%b'
+precmd () {
+    vcs_info
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        RPS1="%F{cyan}%B%t%b%f[%F{blue}%B%?%b%f]"
+    else;
+        RPS1="(%F{green}${vcs_info_msg_0_}%f)%F{cyan}%B%t%b%f[%F{blue}%B%?%b%f]"
+    fi
+}
+
+
 # FZF
 if [[ -f ~/.fzf.zsh ]] && [[ -f ~/.fzf/shell/key-bindings.zsh ]]; then source ~/.fzf.zsh; fi
 
 # being replaced by seoul256
 # FZF_DEFAULT_OPTS="--color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
 # --color info:108,prompt:109,spinner:108,pointer:168,marker:168"
-FZF_DEFAULT_OPTS="--color fg:14,bg:16,hl:4,fg+:237,bg+:14,hl+:16
---color info:14,prompt:14,spinner:14,pointer:16,marker:16"
+# FZF_DEFAULT_OPTS="--color fg:14,bg:16,hl:4,fg+:237,bg+:14,hl+:16
+# --color info:14,prompt:14,spinner:14,pointer:16,marker:16"
+# FZF_DEFAULT_OPTS="--color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C
+# --color pointer:#BF616A,info:#4C566A,spinner:#4C566A,header:#4C566A,prompt:#81A1C1,marker:#EBCB8B"
+# export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+    --color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1
+    --color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1
+    --color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac
+    --color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b'
 
 export FZF_DEFAULT_OPTS
 export FZF_COMPLETION_TRIGGER=';;'
@@ -221,21 +276,21 @@ function cdfmr () {
 # zsh-syntax-highlighting
 if [[ -f ~/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh ]]; then 
     test -e ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
-    ZSH_HIGHLIGHT_STYLES[alias]=fg=blue,bold
-    ZSH_HIGHLIGHT_STYLES[builtin]=fg=blue,bold
-    ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=blue
-    ZSH_HIGHLIGHT_STYLES[command-substitution]=fg=blue
-    ZSH_HIGHLIGHT_STYLES[command]=fg=blue,bold
-    ZSH_HIGHLIGHT_STYLES[comment]=fg=magenta
-    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=default
-    ZSH_HIGHLIGHT_STYLES[function]=fg=blue,bold
-    ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
-    ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=default
-    ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,bold
-    ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=blue,bold
-    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=default
-    ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline,bold
+#     # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
+#     ZSH_HIGHLIGHT_STYLES[alias]=fg=blue,bold
+#     ZSH_HIGHLIGHT_STYLES[builtin]=fg=blue,bold
+#     ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter]=fg=blue
+#     ZSH_HIGHLIGHT_STYLES[command-substitution]=fg=blue
+#     ZSH_HIGHLIGHT_STYLES[command]=fg=blue,bold
+#     ZSH_HIGHLIGHT_STYLES[comment]=fg=magenta
+#     ZSH_HIGHLIGHT_STYLES[double-quoted-argument]=fg=default
+#     ZSH_HIGHLIGHT_STYLES[function]=fg=blue,bold
+#     ZSH_HIGHLIGHT_STYLES[globbing]=fg=green,bold
+#     ZSH_HIGHLIGHT_STYLES[hashed-command]=fg=default
+#     ZSH_HIGHLIGHT_STYLES[history-expansion]=fg=white,bold
+#     ZSH_HIGHLIGHT_STYLES[reserved-word]=fg=blue,bold
+#     ZSH_HIGHLIGHT_STYLES[single-quoted-argument]=fg=default
+#     ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline,bold
 fi
 
 # zsh-autosuggestions
@@ -249,3 +304,5 @@ fi
 # sudo prompt
 export SUDO_PROMPT="$(tput setaf 14)> Behind this door must be the elevator to the King's castle. You're filled with determination.
 > [sudo] password for %p: $(tput sgr0)"
+
+test -r ~/.dircolors.nord && eval $(dircolors ~/.dircolors.nord)

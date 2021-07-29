@@ -222,7 +222,8 @@ let g:rehash256 = 1
 set background=dark
 " only if you use seoul256
 let g:seoul256_background = 236
-colorscheme pablo
+set termguicolors
+colorscheme iceberg
 set nocursorline
 highlight WildMenu ctermfg=black ctermbg=white
 highlight Comment ctermfg=darkgrey
