@@ -1,3 +1,9 @@
+-- Turn these off at startup, will be enabled later just before loading the theme
+vim.cmd([[
+    syntax off
+    filetype off
+    filetype plugin indent off
+]])
 vim.o.autoindent = true
 vim.o.background = "dark"
 vim.o.backspace = "indent,eol,start"
@@ -14,7 +20,7 @@ vim.o.ignorecase = true
 vim.o.inccommand = "nosplit"
 vim.o.incsearch = true
 vim.o.infercase = true
-vim.o.lazyredraw = false
+vim.o.lazyredraw = true
 vim.o.listchars = "tab:▸ ,eol:↲,trail:•,extends:»,precedes:«,tab:| ,trail:·"
 vim.o.matchtime = 2
 vim.o.modeline = false
@@ -38,7 +44,7 @@ vim.o.wildmenu = true
 vim.o.wildmode = "longest,list,full"
 vim.o.wrapscan = true
 vim.o.writebackup = false
-vim.wo.cursorline = true
+vim.wo.cursorline = false
 vim.wo.list = true
 vim.wo.number = true
 vim.wo.numberwidth = 5
@@ -50,4 +56,4 @@ vim.bo.softtabstop = 4
 vim.bo.swapfile = false
 vim.bo.tabstop = 4
 vim.o.history =  100
-vim.o.shada = "!,'30,<50,s50,h"
+vim.o.shada = ""

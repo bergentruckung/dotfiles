@@ -18,14 +18,17 @@ bind('c', '<c-l>', '<right>', 'noremap')
 -- Source lua current lua file
 bind('n', '<F4>', ':luafile %<cr>', 'noremap', 'silent')
 
+bind('n', '<Leader>q', 'q', 'noremap', 'silent')
+bind('n', 'q', ':quit<cr>', 'noremap', 'silent')
+
 -- Location list
 bind('n', '``', ':lopen<cr>', 'noremap')
 
 -- Buffers
-bind('n', '<Tab>', ':bnext<cr>', 'noremap', 'silent')
-bind('n', '<S-Tab>', ':bprev<cr>', 'noremap', 'silent')
+-- bind('n', '<Tab>', ':bnext<cr>', 'noremap', 'silent')
+-- bind('n', '<S-Tab>', ':bprev<cr>', 'noremap', 'silent')
 ---- save buffer
-bind('n', 'ss', ':w<cr>', 'noremap')
+bind('n', '<C-s>', ':w<cr>', 'noremap')
 
 -- Splits
 bind('n', '<C-j>', '<C-w>j', 'noremap')
@@ -50,9 +53,10 @@ bind('n', '<c-p>', ':Telescope buffers<cr>', 'noremap', 'silent')
 bind('n', '<c-t>', ':Telescope find_files<cr>', 'noremap', 'silent')
 bind('n', '<leader>/', ':Telescope live_grep<cr>', 'noremap', 'silent')
 bind('n', '<leader>p', ':Telescope oldfiles<cr>', 'noremap', 'silent')
-bind('n', '<F3>', ':lua require("plugins.telescope_config").find_nvim_dotfiles()<cr>', 'noremap', 'silent')
-bind('n', '<F8>', ':lua require("plugins.telescope_config").find_dotfiles()<cr>', 'noremap', 'silent')
-bind('n', '<leader><leader>', ':Telescope builtin<cr>', 'noremap', 'silent')
+bind('n', '<F3>', ':lua require("plugin_configs.my_telescope").find_nvim_dotfiles()<cr>', 'noremap', 'silent')
+bind('n', '<F8>', ':lua require("plugin_configs.my_telescope").find_dotfiles()<cr>', 'noremap', 'silent')
+bind('n', '<leader>gc', ':Telescope git_commits<cr>', 'noremap', 'silent')
+bind('n', '<leader>tt', ':TodoTelescope<cr>', 'noremap', 'silent')
 
 --- FzfFunky
 -- bind('n', '<leader>f', ':FzfFunky<cr>', 'noremap', 'silent')
@@ -65,12 +69,12 @@ bind('n', '<leader><leader>', ':Telescope builtin<cr>', 'noremap', 'silent')
 ---- Use <Tab> and <S-Tab> to navigate through popup menu
 -- bind('i', '<expr><Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', 'noremap')
 -- bind('i', '<expr><S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', 'noremap')
-bind('n', '<Tab>', '<Plug>(completion_smart_tab)', 'noremap')
-bind('n', '<-stab>', '<Plug>(completion_smart_s_tab)', 'noremap')
+-- bind('n', '<Tab>', '<Plug>(completion_smart_tab)', 'noremap')
+-- bind('n', '<-stab>', '<Plug>(completion_smart_s_tab)', 'noremap')
 
 --- Tabulous
-bind('n', '<leader>t', ':tabnew<cr>', 'noremap')
-bind('n', '<leader>T', ':TabulousRename ', 'noremap')
+bind('n', '<m-;>', ':tabnew<cr>', 'noremap')
+bind('n', '<m-\'>', ':TabulousRename ', 'noremap')
 
 --- vim-floaterm
 bind('n', '<leader>;', ':FloatermToggle<CR>', 'silent')
@@ -93,3 +97,27 @@ bind('t', '<leader>;', '<C-\\><C-n>:FloatermToggle<CR>', 'silent')
 -- bind('n', '<leader><cr>', '<Plug>WorkbenchToggleCheckbox', 'silent')
 --- nvim-tree
 bind('n', '<leader>`', ':NvimTreeToggle<cr>', 'noremap', 'silent')
+
+--- lspsaga
+bind('n', 'gh', ':Lspsaga lsp_finder<cr>', 'silent')
+bind('n', '<leader>ca', ':Lspsaga code_action<cr>', 'silent')
+bind('v', '<leader>ca', ':<C-U>Lspsaga range_code_action<cr>', 'silent')
+bind('n', 'K', ':Lspsaga hover_doc<cr>', 'silent')
+bind('n', '<C-f>', ':lua require("lspsaga.action").smart_scroll_with_saga(1)<cr>', 'silent')
+bind('n', '<C-b>', ':lua require("lspsaga.action").smart_scroll_with_saga(-1)<cr>', 'silent')
+bind('n', 'gs', ':Lspsaga signature_help<cr>', 'silent')
+bind('n', 'gr', ':Lspsaga rename<cr>', 'silent')
+bind('n', 'gd', ':Lspsaga preview_definition<cr>', 'silent')
+bind('n', 'gl', ':Lspsaga show_line_diagnostics<cr>', 'silent')
+
+-- LazyGit
+bind('n', '<Leader>G', ':LazyGit<cr>', 'silent')
+
+-- hardmode
+bind('n', '<Leader>h', ':call ToggleHardMode()<CR>', 'silent')
+
+-- async
+bind('n', '<leader><leader>', ':AsyncTask build<cr>')
+bind('n', '<leader>', ':AsyncTask')
+bind('n', '<leader>', ':AsyncTaskList<cr>')
+bind('n', '<F6>', ':AsyncTaskEdit<cr>')
