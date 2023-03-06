@@ -1,3 +1,2 @@
---theme="Dracula"
---style="numbers,changes,header"
 --map-syntax .ignore:.gitignore
+--theme="Nord"

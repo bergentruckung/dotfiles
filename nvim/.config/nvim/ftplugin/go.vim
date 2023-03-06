@@ -1,9 +1,16 @@
 setlocal textwidth=80
 setlocal colorcolumn=+1
-setlocal omnifunc=v:lua.vim.lsp.omnifunc
+setlocal cursorline
+setlocal number
+setlocal relativenumber
+" setlocal list
+" setlocal spell
 
 iabbrev ispew "github.com/davecgh/go-spew/spew"
+iabbrev ilog log "github.com/sirupsen/logrus"
 
-PackerLoad nvim-lspconfig
-LspStart
-" autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)
+" PackerLoad nvim-lspconfig
+" PackerLoad nvim-treesitter
+" PackerLoad nvim-treesitter-context
+" LspStart
+autocmd BufWritePre *.go lua vim.lsp.buf.format()

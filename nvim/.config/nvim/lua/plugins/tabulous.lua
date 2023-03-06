@@ -1,1 +1,0 @@
--- vim.v.tabulousCloseStr = ''

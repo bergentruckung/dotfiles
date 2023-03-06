@@ -1,0 +1,3 @@
+setlocal cursorline
+setlocal nonu
+setlocal norelativenumber

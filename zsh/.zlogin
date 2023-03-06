@@ -9,7 +9,7 @@ function get_unique_users {
 
 # Prints text in green
 function print_with_green {
-    tput setaf 2; echo $1; tput sgr0;
+    tput setaf 6; echo $1; tput sgr0;
 }
 
 # Source local zlogin

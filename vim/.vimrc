@@ -223,7 +223,9 @@ set background=dark
 " only if you use seoul256
 let g:seoul256_background = 236
 set termguicolors
-colorscheme iceberg
+let zenburn_high_Contrast=0
+let zenburn_alternate_Visual=1
+colorscheme zenburn
 set nocursorline
 highlight WildMenu ctermfg=black ctermbg=white
 highlight Comment ctermfg=darkgrey
